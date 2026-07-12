@@ -4,6 +4,7 @@
 -- ============================================================
 
 
+
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE Devolucion        CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
 /
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE Productos_Ventas  CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;
@@ -144,7 +145,7 @@ CREATE TABLE Proveedores (
     Apellido2         VARCHAR2(100),
     Correo_Electr     VARCHAR2(200),
     Telefono          VARCHAR2(20),
-    Estado            VARCHAR2(20)  DEFAULT 'Activo' NOT NULL
+    Estado            VARCHAR2(20)  DEFAULT 'Activo'
 );
 
 CREATE TABLE Proveedores_Direcciones (
@@ -1095,44 +1096,44 @@ SELECT * FROM SUCURSALES_DIRECCIONES;
 
 --PROVEEDORES
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Motul Costa Rica', 'Carlos', 'Ramírez', 'Vargas', 'motul.cr@example.com', '2222-1101', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Motul Costa Rica', 'Carlos', 'Ramírez', 'Vargas', 'motul.cr@example.com', '2222-1101');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Castrol Distribución', 'Andrea', 'Soto', 'Mora', 'castrol.cr@example.com', '2222-1102', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Castrol Distribución', 'Andrea', 'Soto', 'Mora', 'castrol.cr@example.com', '2222-1102');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Shell Helix CR', 'Jorge', 'Hernández', 'Soto', 'shell.cr@example.com', '2222-1103', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Shell Helix CR', 'Jorge', 'Hernández', 'Soto', 'shell.cr@example.com', '2222-1103');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Valvoline CR', 'Paula', 'González', 'Vega', 'valvoline.cr@example.com', '2222-1104', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Valvoline CR', 'Paula', 'González', 'Vega', 'valvoline.cr@example.com', '2222-1104');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('TotalEnergies CR', 'Luis', 'Jiménez', 'Araya', 'total.cr@example.com', '2222-1105', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('TotalEnergies CR', 'Luis', 'Jiménez', 'Araya', 'total.cr@example.com', '2222-1105');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('MANN-FILTER', 'Sofía', 'Rodríguez', 'Chacón', 'mann.cr@example.com', '2222-1106', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('MANN-FILTER', 'Sofía', 'Rodríguez', 'Chacón', 'mann.cr@example.com', '2222-1106');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Bosch Autopartes', 'Daniel', 'Pérez', 'Segura', 'bosch.cr@example.com', '2222-1107', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Bosch Autopartes', 'Daniel', 'Pérez', 'Segura', 'bosch.cr@example.com', '2222-1107');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('FRAM Filtros', 'Natalia', 'Sánchez', 'Ureña', 'fram.cr@example.com', '2222-1108', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('FRAM Filtros', 'Natalia', 'Sánchez', 'Ureña', 'fram.cr@example.com', '2222-1108');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Mobil 1', 'Ricardo', 'Vargas', 'Méndez', 'mobil1.cr@example.com', '2222-1109', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Mobil 1', 'Ricardo', 'Vargas', 'Méndez', 'mobil1.cr@example.com', '2222-1109');
 
 INSERT INTO Proveedores
-(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono, Estado)
-VALUES ('Liqui Moly', 'Fernanda', 'Castro', 'Valverde', 'liquimoly.cr@example.com', '2222-1110', 'Activo');
+(Nombre_Proveedor, Nombre_Contacto, Apellido1, Apellido2, Correo_Electr, Telefono)
+VALUES ('Liqui Moly', 'Fernanda', 'Castro', 'Valverde', 'liquimoly.cr@example.com', '2222-1110');
 
 COMMIT;
 SELECT * FROM PROVEEDORES;
@@ -2338,5 +2339,596 @@ VALUES ('No cumplió expectativas',1,TO_TIMESTAMP('2026-04-23 10:00:00','YYYY-MM
 
 COMMIT;
 
-SELECT * FROM ventas;
 
+
+
+
+----------------------RF-01 El sistema deberá permitir registrar clientes con sus datos personales y de contacto.---------------------------
+
+
+
+
+--Procedimiento para registrar clientes 
+
+CREATE OR REPLACE PROCEDURE registrar_cliente (p_cedula IN clientes.cedula%TYPE, p_nombre IN clientes.nombre%TYPE, p_apellido1 IN clientes.apellido1%TYPE,p_apellido2 IN clientes.apellido2%TYPE,p_correo IN clientes.correo_electr%TYPE, p_telefono IN clientes.telefono%TYPE)
+IS
+BEGIN
+    INSERT INTO clientes (
+        cedula,
+        nombre,
+        apellido1,
+        apellido2,
+        correo_electr,
+        telefono
+    )
+    VALUES (
+        p_cedula,
+        p_nombre,
+        p_apellido1,
+        p_apellido2,
+        p_correo,
+        p_telefono
+    );
+
+    DBMS_OUTPUT.PUT_LINE('Cliente registrado correctamente');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Ya existe un cliente registrado con esa cédula'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al registrar el cliente'
+        );
+END;
+
+
+ 
+
+/* bloque prueba para comprobar si el procedimiento funciona correctamente
+
+declare
+   begin
+
+    registrar_cliente ('1-1000-2000','María', 'González', 'Soto', 'maria.gonzalez01@gmail.com','8600-0000');
+
+
+   end;
+
+*/
+
+
+--Procedimiento para consultar los datos de los clientes
+
+CREATE OR REPLACE PROCEDURE consultar_clientes(
+    p_resultado OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_resultado FOR
+        SELECT
+            cedula,
+        nombre,
+        apellido1,
+        apellido2,
+        correo_electr,
+        telefono
+        FROM clientes
+        ORDER BY nombre;
+END;
+
+/*
+ bloque prueba para comprobar si el procedimiento funciona correctamente
+ 
+
+DECLARE
+    c_clientes SYS_REFCURSOR;
+
+    v_cedula    clientes.cedula%TYPE;
+    v_nombre    clientes.nombre%TYPE;
+    v_apellido1 clientes.apellido1%TYPE;
+     v_apellido2 clientes.apellido2%TYPE;
+     v_correo    clientes.correo_electr%TYPE;
+    v_telefono  clientes.telefono%TYPE;
+BEGIN
+
+    consultar_clientes(c_clientes);
+
+    LOOP
+
+        FETCH c_clientes
+        INTO v_cedula, v_nombre,  v_apellido1, v_apellido2,  v_correo, v_telefono;
+
+        EXIT WHEN c_clientes%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            v_nombre || ' - ' ||  v_correo);
+
+    END LOOP;
+
+    CLOSE c_clientes;
+
+END;
+
+*/
+
+
+--Procedimiento para editar correo y telefono de los clientes
+
+CREATE OR REPLACE PROCEDURE editar_correo_telefono_cliente (p_cedula IN clientes.cedula%TYPE,p_correo IN clientes.correo_electr%TYPE, p_telefono IN clientes.telefono%TYPE)
+IS
+BEGIN
+    UPDATE clientes
+      set
+        correo_electr = p_correo,
+        telefono = p_telefono
+        where cedula = p_cedula;
+        
+    
+
+    DBMS_OUTPUT.PUT_LINE('Datos actualizados correctamente');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe un cliente con esa cedula registrada'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al editar los datos'
+        );
+END;
+
+/*
+bloque prueba para comprobar si el procedimiento funciona correctamente
+
+declare
+   begin
+
+    editar_correo_telefono_cliente ('1-1000-2000', 'maria.gonzalez02@gmail.com','8700-0000');
+    
+
+
+   end;
+
+
+*/
+
+--Procedimiento para eliminar un cliente
+
+CREATE OR REPLACE PROCEDURE eliminar_cliente (p_cedula IN clientes.cedula%TYPE)
+IS
+BEGIN
+    delete from clientes
+        where cedula = p_cedula;
+        
+    
+
+    DBMS_OUTPUT.PUT_LINE('Cliente eliminado correctamente');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe un cliente con esa cedula registrada'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al eliminar los datos'
+        );
+END;
+
+/*
+declare
+   begin
+
+    eliminar_cliente ('1-1000-2000');
+    
+   end;
+   
+*/
+
+
+--Funcion para verificar si un cliente existe
+
+CREATE OR REPLACE FUNCTION existe_cliente ( p_cedula IN clientes.cedula%TYPE) RETURN NUMBER
+IS
+    v_cantidad NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_cantidad
+    FROM clientes
+    WHERE cedula = p_cedula;
+
+    RETURN v_cantidad;
+END;
+
+/*
+DECLARE
+    v_existe NUMBER;
+BEGIN
+    v_existe := existe_cliente('123456789');
+
+    IF v_existe > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('El cliente existe.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('El cliente no existe.');
+    END IF;
+END;
+*/
+
+
+--Vista que permite ver el historial de compras por cliente
+
+CREATE OR REPLACE VIEW vista_clientes_compras AS
+SELECT
+    c.cedula,
+    c.nombre,
+    COUNT(v.id_venta) AS cantidad_compras,
+    NVL(SUM(v.total), 0) AS total_comprado
+FROM clientes c
+LEFT JOIN ventas v
+    ON c.cedula = v.cedula
+GROUP BY
+    c.cedula,
+    c.nombre;
+    
+
+--Procedimiento que llama a la vista
+
+CREATE OR REPLACE PROCEDURE mostrar_clientes_compras (
+    p_resultado OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_resultado FOR
+        SELECT
+            cedula,
+            nombre,
+            cantidad_compras,
+            total_comprado
+        FROM vista_clientes_compras
+        ORDER BY nombre;
+END;
+
+ /*
+ 
+ DECLARE
+    v_resultado SYS_REFCURSOR;
+BEGIN
+    mostrar_clientes_compras(v_resultado);
+
+    DBMS_SQL.RETURN_RESULT(v_resultado);
+END;
+ 
+ 
+ */
+
+----------------------RF-02 El sistema deberá permitir registrar proveedores.---------------------------
+
+
+CREATE OR REPLACE PROCEDURE registrar_proveedor (p_nombre_proveedor IN proveedores.nombre_proveedor%TYPE, p_nombre_contacto IN proveedores.nombre_contacto%TYPE, p_apellido1 IN proveedores.apellido1%TYPE,p_apellido2 IN proveedores.apellido2%TYPE,
+p_correo IN proveedores.correo_electr%TYPE, p_telefono IN clientes.telefono%TYPE)
+IS
+BEGIN
+    INSERT INTO proveedores (
+        nombre_proveedor,
+        nombre_contacto,
+        apellido1,
+        apellido2,
+        correo_electr,
+        telefono
+    )
+    VALUES (
+        p_nombre_proveedor,
+        p_nombre_contacto,
+        p_apellido1,
+        p_apellido2,
+        p_correo,
+        p_telefono
+    );
+
+    DBMS_OUTPUT.PUT_LINE('Proveedor registrado correctamente');
+
+EXCEPTION
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al registrar el proveedor'
+        );
+END;
+
+
+select * from proveedores
+
+/*bloque prueba para comprobar si el procedimiento funciona correctamente
+
+declare
+   begin
+
+    registrar_proveedor ('Penzoil', 'Sergio','González', 'Soto', 'sergio.gonzales10@gmail.com','8700-0707');
+
+
+   end;
+
+*/
+
+
+
+---Procedimiento para actualizar informacion del contacto del proveedor
+CREATE OR REPLACE PROCEDURE editar_contacto_proveedor (
+    p_id_proveedor    IN proveedores.id_proveedor%TYPE,
+    p_nombre_contacto IN proveedores.nombre_contacto%TYPE,
+    p_apellido1       IN proveedores.apellido1%TYPE,
+    p_apellido2       IN proveedores.apellido2%TYPE,
+    p_correo          IN proveedores.correo_electr%TYPE,
+    p_telefono        IN proveedores.telefono%TYPE
+)
+IS
+BEGIN
+    UPDATE proveedores
+    SET nombre_contacto = p_nombre_contacto,
+        apellido1       = p_apellido1,
+        apellido2       = p_apellido2,
+        correo_electr   = p_correo,
+        telefono        = p_telefono
+    WHERE id_proveedor = p_id_proveedor;
+
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Datos actualizados correctamente');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('No existe el proveedor indicado');
+    END IF;
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Ya existe un contacto de proveedor con ese teléfono o correo'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al editar los datos: ');
+END;
+
+
+/* bloque prueba para comprobar si el procedimiento funciona correctamente
+
+declare
+   begin
+
+    editar_contacto_proveedor('11', 'Andrea', 'Gonzalez', 'Mora', 'penzoil.cr@example.com', '2222-1102');
+    
+
+
+   end;
+*/
+
+--Procedimeinto paara eliminar proveedor
+
+CREATE OR REPLACE PROCEDURE eliminar_proveedor (p_id_proveedor IN proveedores.id_proveedor%TYPE)
+IS
+BEGIN
+    delete from proveedores
+        where id_proveedor = p_id_proveedor;
+        
+    
+
+    DBMS_OUTPUT.PUT_LINE('Proveedor eliminado correctamente');
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe un provedor con ese ID registrado'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al eliminar los datos'
+        );
+END;
+
+
+/*
+declare
+   begin
+
+    eliminar_proveedor (11);
+    
+   end;
+   
+*/
+
+--Procedimiento para ver la informacion de la tabla (select * )
+
+CREATE OR REPLACE PROCEDURE consultar_proveedores(
+    p_resultado OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_resultado FOR
+        SELECT
+         nombre_proveedor,
+        nombre_contacto,
+        apellido1,
+        apellido2,
+        correo_electr,
+        telefono,
+        estado
+        FROM proveedores;
+
+END;
+
+
+
+/*
+ bloque prueba para comprobar si el procedimiento funciona correctamente
+ 
+
+DECLARE
+    v_proveedores SYS_REFCURSOR;
+
+    v_nombre_proveedor proveedores.nombre_proveedor%TYPE;
+    v_nombre_contacto  proveedores.nombre_contacto%TYPE;
+    v_apellido1        proveedores.apellido1%TYPE;
+    v_apellido2        proveedores.apellido2%TYPE;
+    v_correo           proveedores.correo_electr%TYPE;
+    v_telefono         proveedores.telefono%TYPE;
+    v_estado           proveedores.estado%TYPE;           
+
+BEGIN
+    consultar_proveedores(v_proveedores);
+
+    LOOP
+        FETCH v_proveedores
+        INTO
+            v_nombre_proveedor,
+            v_nombre_contacto,
+            v_apellido1,
+            v_apellido2,
+            v_correo,
+            v_telefono,
+            v_estado;
+
+        EXIT WHEN v_proveedores%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Proveedor: ' || v_nombre_proveedor ||
+            ' | Contacto: ' || v_nombre_contacto || ' ' ||
+            v_apellido1 || ' ' || v_apellido2 ||
+            ' | Correo: ' || v_correo ||
+            ' | Teléfono: ' || v_telefono ||
+             ' | Estado: ' || v_estado
+        );
+
+    END LOOP;
+
+    CLOSE v_proveedores;
+END;
+
+*/
+
+--Funcion para ver cuantos productos suministra el proveedor
+
+CREATE OR REPLACE FUNCTION cantidad_productos_proveedor (
+    p_id_proveedor IN proveedores.id_proveedor%TYPE
+) RETURN NUMBER
+IS
+    v_cantidad NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_cantidad
+    FROM productos
+    WHERE id_proveedor = p_id_proveedor;
+
+    RETURN v_cantidad;
+END;
+
+
+--Funcion para ver si un proveedor esta innactivo
+
+CREATE OR REPLACE FUNCTION estado_proveedor (
+    p_id_proveedor IN proveedores.id_proveedor%TYPE
+) RETURN VARCHAR2
+IS
+    v_estado proveedores.estado%TYPE;
+BEGIN
+    SELECT estado
+    INTO v_estado
+    FROM proveedores
+    WHERE id_proveedor = p_id_proveedor;
+
+    RETURN v_estado;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 'El proveedor no existe';
+END;
+
+
+
+--Procedimiento para poner un proveedor como inactivo
+
+CREATE OR REPLACE PROCEDURE editar_estado_proveedor (
+    p_id_proveedor    IN proveedores.id_proveedor%TYPE,
+    p_estado          IN proveedores.estado%type
+)
+IS
+BEGIN
+    UPDATE proveedores
+    SET estado = p_estado
+        
+    WHERE id_proveedor = p_id_proveedor;
+
+    IF SQL%ROWCOUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Estado actualizado correctamente');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('No existe el proveedor indicado');
+    END IF;
+
+EXCEPTION
+    WHEN DUP_VAL_ON_INDEX THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Ya existe un contacto de proveedor con ese teléfono o correo'
+        );
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al editar los datos: ');
+END;
+
+drop procedure editar_estado_proveedor
+/*
+ bloque prueba para comprobar si el procedimiento funciona correctamente
+
+declare
+   begin
+
+    editar_estado_proveedor(10,'Inactivo' );
+    
+
+
+   end;
+*/
+
+--Vista para ver los productos de los proveedores
+
+CREATE OR REPLACE VIEW vista_productos_proveedores AS
+SELECT
+    p.id_producto,
+    p.nombre AS nombre_producto,
+    pr.nombre_proveedor,
+    pr.nombre_contacto || ' ' ||
+    pr.apellido1 || ' ' ||
+    pr.apellido2 AS contacto_proveedor
+FROM productos p
+JOIN proveedores pr
+    ON p.id_proveedor = pr.id_proveedor;
+
+
+
+--Procedimiento para ejecutar la vista
+
+CREATE OR REPLACE PROCEDURE mostrar_productos_proveedores (
+    p_resultado OUT SYS_REFCURSOR
+)
+IS
+BEGIN
+    OPEN p_resultado FOR
+        SELECT * 
+        FROM vista_productos_proveedores
+        ORDER BY nombre_producto;
+END;
+
+ /*
+ DECLARE
+    v_resultado SYS_REFCURSOR;
+BEGIN
+    mostrar_productos_proveedores(v_resultado);
+
+    DBMS_SQL.RETURN_RESULT(v_resultado);
+END;
+*/
