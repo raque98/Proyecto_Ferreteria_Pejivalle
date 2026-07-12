@@ -1,38 +1,39 @@
-"""
-DAO (Data Access Object) del modulo Tipo_Pagos. Aqui SOLO se llaman procedimientos de la base de datos.
-"""
+# dao/dao_tipo_pagos.py
+# Descripción: DAO para gestionar métodos de pago
 
 import oracledb
-from config.db_connection import obtener_conexion
 
+class DAOTipoPagos:
+    def __init__(self, connection):
+        self.connection = connection
 
-def registrar_tipo_pago(nombre_metodo):
-    """
-    Llama a SP_REGISTRAR_TIPO_PAGO para insertar un nuevo método de pago.
-    """
-    conexion = obtener_conexion()
-    cursor = conexion.cursor()
+    def registrar(self, metodo_pago):
+        try:
+            cursor = self.connection.cursor()
+            cursor.callproc("SP_REGISTRAR_TIPO_PAGO", [metodo_pago])
+            self.connection.commit()
+            cursor.close()
+            print("Método de pago registrado con éxito.")
+        except Exception as e:
+            print(f"Error al registrar método de pago: {e}")
 
-    cursor.callproc("SP_REGISTRAR_TIPO_PAGO", [nombre_metodo])
-
-    cursor.close()
-    conexion.close()
-
-
-def listar_tipos_pago():
-    """
-    Llama a SP_LISTAR_TIPOS_PAGO y retorna la lista de metodos de pago como una lista de tuplas (id, nombre).
-    """
-    conexion = obtener_conexion()
-    cursor = conexion.cursor()
-
-    cursor_salida = cursor.var(oracledb.CURSOR)
-    cursor.callproc("SP_LISTAR_TIPOS_PAGO", [cursor_salida])
-
-    resultado_cursor = cursor_salida.getvalue()
-    filas = resultado_cursor.fetchall()
-
-    cursor.close()
-    conexion.close()
-
-    return filas
+    def listar_todos(self):
+        try:
+            cursor = self.connection.cursor()
+            result = cursor.var(oracledb.CURSOR)
+            cursor.callproc("SP_LISTAR_TIPOS_PAGO", [result])
+            cursor = result.getvalue()
+            rows = cursor.fetchall()
+            cursor.close()
+            
+            if not rows:
+                print("📭 No hay métodos de pago registrados.")
+                return
+            
+            print("\n--- Metodos de Pago ---")
+            for row in rows:
+                print(f"[{row[0]}] {row[1]}")
+            return rows
+        except Exception as e:
+            print(f"Error al listar métodos de pago: {e}")
+            return []
