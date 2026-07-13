@@ -9,6 +9,7 @@ import oracledb
 from dao.dao_tipo_pagos import DAOTipoPagos
 from dao.dao_clientes import DAOClientes
 from dao.dao_proveedores import DAOProveedores
+from dao.dao_ventas import DAOVentas
 
 load_dotenv()
 
@@ -18,6 +19,7 @@ class MenuFerreteria:
         self.dao_tipo_pagos = None
         self.dao_clientes = None
         self.dao_proveedores = None
+        self.dao_ventas = None
         
     def conectar(self):
         try:
@@ -32,6 +34,7 @@ class MenuFerreteria:
             self.dao_tipo_pagos = DAOTipoPagos(self.connection)
             self.dao_clientes = DAOClientes(self.connection)
             self.dao_proveedores = DAOProveedores(self.connection)
+            self.dao_ventas = DAOVentas(self.connection)
             print("Conexión exitosa a Oracle Cloud\n")
             return True
         except Exception as e:
@@ -66,6 +69,8 @@ class MenuFerreteria:
                     self.menu_clientes()
                 elif opcion == 3:
                     self.menu_proveedores()
+                elif opcion == 7:
+                    self.menu_ventas()
                 else:
                     print("\nOpción no disponible aún. Próximamente...")
                     
@@ -287,6 +292,103 @@ class MenuFerreteria:
         id_proveedor = int(input("ID del proveedor: "))
         estado = self.dao_proveedores.ver_estado(id_proveedor)
         print(f"El estado del proveedor es: {estado}")
+
+
+    # Menu: Ventas (RF-05 y RF-06)
+
+    def menu_ventas(self):
+        while True:
+            print("\n" + "-"*40)
+            print("   Gestion de Ventas")
+            print("-"*40)
+            print("1. Registrar venta")
+            print("2. Consultar ventas")
+            print("3. Ver inventario por sucursal")
+            print("4. Ver metodos de pago")
+            print("0. Volver")
+
+            opcion = input("Seleccione: ")
+
+            if opcion == "0":
+                break
+            elif opcion == "1":
+                self.registrar_venta()
+            elif opcion == "2":
+                self.mostrar_ventas()
+            elif opcion == "3":
+                self.mostrar_inventario_venta()
+            elif opcion == "4":
+                self.mostrar_metodos_pago_venta()
+            else:
+                print("Opcion no valida.")
+
+    def mostrar_metodos_pago_venta(self):
+        rows = self.dao_ventas.listar_metodos_pago()
+        if not rows:
+            print("No hay metodos de pago registrados.")
+            return
+        print("\nID | Metodo de pago")
+        print("-"*30)
+        for row in rows:
+            print(f"{row[0]:<2} | {row[1]}")
+
+    def mostrar_inventario_venta(self):
+        try:
+            id_sucursal = int(input("ID de la sucursal: "))
+        except ValueError:
+            print("El ID de sucursal debe ser numerico.")
+            return
+
+        rows = self.dao_ventas.listar_inventario(id_sucursal)
+        if not rows:
+            print("No hay productos disponibles para esa sucursal.")
+            return
+
+        print("\nID | Producto | Precio | Existencia")
+        print("-"*65)
+        for row in rows:
+            print(f"{row[0]:<3} | {row[1]:<25} | {row[2]:>10} | {row[3]}")
+
+    def registrar_venta(self):
+        print("\n--- Registrar Venta ---")
+        try:
+            cedula = input("Cedula del cliente: ").strip()
+            id_trabajador = int(input("ID del trabajador: "))
+            id_tipo_pago = int(input("ID del metodo de pago: "))
+            id_producto = int(input("ID del producto: "))
+            cantidad = int(input("Cantidad: "))
+            id_sucursal = int(input("ID de la sucursal: "))
+        except ValueError:
+            print("Trabajador, metodo de pago, producto, cantidad y sucursal deben ser numericos.")
+            return
+
+        resultado = self.dao_ventas.registrar(
+            cedula,
+            id_trabajador,
+            id_tipo_pago,
+            id_producto,
+            cantidad,
+            id_sucursal,
+        )
+
+        print(f"Resultado: {resultado['mensaje']}")
+        if resultado["ok"]:
+            print(f"ID de venta: {resultado['id_venta']}")
+            print(f"Total: {resultado['total']}")
+
+    def mostrar_ventas(self):
+        rows = self.dao_ventas.consultar_todas()
+        if not rows:
+            print("No hay ventas registradas.")
+            return
+
+        print("\nID | Fecha | Cedula | Cliente | Trabajador | Metodo | Total")
+        print("-"*120)
+        for row in rows:
+            print(
+                f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | "
+                f"{row[4]} | {row[5]} | {row[6]}"
+            )
 
 if __name__ == "__main__":
     app = MenuFerreteria()
