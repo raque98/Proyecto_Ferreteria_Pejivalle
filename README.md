@@ -12,3 +12,6 @@ Se actualizó `main.py` con la opción Gestionar Ventas.
 3. Ejecutar `RF05_RF06_Ventas.sql` con F5.
 4. Ejecutar `main.py` y seleccionar la opción 7. Gestionar Ventas.
 
+
+
+
