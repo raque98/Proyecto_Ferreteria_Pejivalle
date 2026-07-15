@@ -246,6 +246,9 @@ FETCH FIRST 10 ROWS ONLY;
 
 -- Prueba 3: registrar una venta.
 -- IMPORTANTE: sustituir los valores por datos existentes si fuera necesario.
+
+ALTER SESSION DISABLE PARALLEL DML;
+
 DECLARE
     v_id_venta Ventas.ID_Venta%TYPE;
     v_total    Ventas.Total%TYPE;
@@ -263,9 +266,17 @@ BEGIN
         p_mensaje       => v_mensaje
     );
 
-    DBMS_OUTPUT.PUT_LINE('ID venta: ' || NVL(TO_CHAR(v_id_venta), 'N/A'));
-    DBMS_OUTPUT.PUT_LINE('Total: ' || TO_CHAR(v_total, 'FM999G999G990D00'));
-    DBMS_OUTPUT.PUT_LINE('Resultado: ' || v_mensaje);
+    DBMS_OUTPUT.PUT_LINE(
+        'ID venta: ' || NVL(TO_CHAR(v_id_venta), 'N/A')
+    );
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Total: ' || TO_CHAR(v_total, 'FM999G999G990D00')
+    );
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Resultado: ' || v_mensaje
+    );
 END;
 /
 
