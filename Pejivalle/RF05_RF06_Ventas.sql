@@ -1,19 +1,11 @@
--- ============================================================
--- FERRETERIA PEJIVALLE
--- Curso: SC-504 Lenguajes de Bases de Datos
+-- Ferreteria Pejivalle
+-- RF-05 y RF-06
 -- Autor: Maria Paz Garcia Umana
 -- Fecha: 12/07/2026
---
--- RF-05: Registrar ventas realizadas a los clientes.
--- RF-06: Registrar el metodo de pago utilizado en cada venta.
---
--- Este archivo debe ejecutarse DESPUES de PejivalleScript.sql.
--- ============================================================
 
 SET SERVEROUTPUT ON;
 
--- Vista para consultar la venta junto con el cliente, trabajador
--- y metodo de pago utilizado.
+-- Vista de ventas
 CREATE OR REPLACE VIEW VW_DETALLE_VENTAS AS
 SELECT
     v.ID_Venta,
@@ -34,11 +26,7 @@ INNER JOIN Tipo_Pagos tp
     ON tp.ID_Tipo_Pago = v.ID_Tipo_Pago;
 /
 
--- ============================================================
--- RF-05 y RF-06
--- Registra una venta, guarda el metodo de pago, crea el detalle
--- del producto vendido y descuenta el inventario de la sucursal.
--- ============================================================
+-- Registrar venta
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_VENTA (
     p_cedula          IN  Clientes.Cedula%TYPE,
     p_id_trabajador   IN  Trabajadores.ID_Trabajador%TYPE,
@@ -60,13 +48,13 @@ BEGIN
     p_id_venta := NULL;
     p_total := 0;
 
-    -- Validar cantidad solicitada.
+    -- Validar cantidad
     IF p_cantidad IS NULL OR p_cantidad <= 0 THEN
         p_mensaje := 'La cantidad debe ser mayor que cero.';
         RETURN;
     END IF;
 
-    -- Validar cliente.
+    -- Validar cliente
     SELECT COUNT(*)
       INTO v_existe_cliente
       FROM Clientes
@@ -77,7 +65,7 @@ BEGIN
         RETURN;
     END IF;
 
-    -- Validar trabajador y que pertenezca a la sucursal indicada.
+    -- Validar trabajador
     SELECT COUNT(*)
       INTO v_existe_trabajador
       FROM Trabajadores
@@ -90,7 +78,7 @@ BEGIN
         RETURN;
     END IF;
 
-    -- RF-06: validar el metodo de pago seleccionado.
+    -- Validar metodo de pago
     SELECT COUNT(*)
       INTO v_existe_pago
       FROM Tipo_Pagos
@@ -101,8 +89,7 @@ BEGIN
         RETURN;
     END IF;
 
-    -- Obtener precio e inventario. FOR UPDATE evita que dos ventas
-    -- descuenten simultaneamente la misma existencia.
+    -- Obtener precio e inventario
     SELECT p.Precio_Venta, ps.Cantidad
       INTO v_precio_venta, v_existencia
       FROM Productos p
@@ -119,8 +106,7 @@ BEGIN
 
     p_total := v_precio_venta * p_cantidad;
 
-    -- RF-05: registrar encabezado de la venta.
-    -- RF-06: ID_Tipo_Pago queda asociado directamente a la venta.
+    -- Insertar venta
     INSERT INTO Ventas (
         Total,
         Cedula,
@@ -134,7 +120,7 @@ BEGIN
     )
     RETURNING ID_Venta INTO p_id_venta;
 
-    -- Registrar producto y cantidad de la venta.
+    -- Insertar detalle
     INSERT INTO Productos_Ventas (
         Cantidad,
         ID_Producto,
@@ -145,7 +131,7 @@ BEGIN
         p_id_venta
     );
 
-    -- Actualizar inventario por sucursal.
+    -- Actualizar inventario
     UPDATE Productos_Sucursales
        SET Cantidad = Cantidad - p_cantidad
      WHERE ID_Sucursal = p_id_sucursal
@@ -174,7 +160,7 @@ EXCEPTION
 END SP_REGISTRAR_VENTA;
 /
 
--- Lista las ventas registradas mediante SYS_REFCURSOR.
+-- Listar ventas
 CREATE OR REPLACE PROCEDURE SP_LISTAR_VENTAS (
     p_cursor OUT SYS_REFCURSOR
 )
@@ -194,7 +180,7 @@ BEGIN
 END SP_LISTAR_VENTAS;
 /
 
--- Lista productos disponibles por sucursal para facilitar la venta.
+-- Listar inventario
 CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO_VENTA (
     p_id_sucursal IN Sucursales.ID_Sucursal%TYPE,
     p_cursor OUT SYS_REFCURSOR
@@ -216,18 +202,14 @@ BEGIN
 END SP_LISTAR_INVENTARIO_VENTA;
 /
 
--- ============================================================
--- BLOQUES DE PRUEBA / EVIDENCIAS
--- Cambiar los identificadores si los datos de prueba del grupo
--- utilizan otros valores.
--- ============================================================
+-- Pruebas
 
--- Prueba 1: verificar metodos de pago disponibles.
+-- Metodos de pago
 SELECT ID_Tipo_Pago, Metodo_Pago
 FROM Tipo_Pagos
 ORDER BY ID_Tipo_Pago;
 
--- Prueba 2: consultar datos validos antes de registrar una venta.
+-- Datos para la prueba
 SELECT Cedula, Nombre, Apellido1
 FROM Clientes
 FETCH FIRST 5 ROWS ONLY;
@@ -244,9 +226,7 @@ INNER JOIN Productos p
 WHERE ps.Cantidad > 0
 FETCH FIRST 10 ROWS ONLY;
 
--- Prueba 3: registrar una venta.
--- IMPORTANTE: sustituir los valores por datos existentes si fuera necesario.
-
+-- Registrar una venta
 ALTER SESSION DISABLE PARALLEL DML;
 
 DECLARE
@@ -280,13 +260,13 @@ BEGIN
 END;
 /
 
--- Prueba 4: comprobar que RF-05 y RF-06 quedaron almacenados.
+-- Consultar ventas
 SELECT *
 FROM VW_DETALLE_VENTAS
 ORDER BY ID_Venta DESC
 FETCH FIRST 10 ROWS ONLY;
 
--- Prueba 5: salida por cursor.
+-- Prueba del cursor
 DECLARE
     v_cursor SYS_REFCURSOR;
 BEGIN
