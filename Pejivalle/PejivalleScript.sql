@@ -2976,28 +2976,6 @@ BEGIN
 
     COMMIT;
 END SP_REGISTRAR_PRODUCTO;
-/
-
--- Procedimiento 2: Listar todos los productos
-
-CREATE OR REPLACE PROCEDURE SP_LISTAR_PRODUCTOS (
-    p_cursor OUT SYS_REFCURSOR
-)
-AS
-BEGIN
-    OPEN p_cursor FOR
-        SELECT
-            ID_PRODUCTO,
-            NOMBRE,
-            PRECIO_VENTA,
-            ID_CATEGORIA
-        FROM PRODUCTOS
-        ORDER BY ID_PRODUCTO;
-END SP_LISTAR_PRODUCTOS;
-/
-
-
-
 
 
 -- Procedimiento 2: Listar todos los productos
@@ -3016,7 +2994,7 @@ BEGIN
         FROM PRODUCTOS
         ORDER BY ID_PRODUCTO;
 END SP_LISTAR_PRODUCTOS;
-/
+
 
 
 
@@ -3049,7 +3027,7 @@ BEGIN
 
     COMMIT;
 END SP_REGISTRAR_INVENTARIO;
-/
+
 
 -- Procedimiento 2: Listar inventario por sucursal
 
@@ -3068,20 +3046,6 @@ BEGIN
         WHERE ID_SUCURSAL = p_id_sucursal
         ORDER BY ID_PRODUCTOS_SUCURSALES;
 END SP_LISTAR_INVENTARIO;
-/
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -----------------------RF-05 y RF-06 El sistema deberá permitir registrar ventas y devoluciones.---------------------------
