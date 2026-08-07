@@ -2940,21 +2940,27 @@ END;
     Autor: Sebastián Rivera
 =============================================================================*/
 
--- Procedimiento 1: Registrar un nuevo producto
+
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 1: REGISTRAR UN PRODUCTO
+   ========================================================= */
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PRODUCTO (
-    p_nombre IN PRODUCTOS.NOMBRE%TYPE,
-    p_descripcion IN PRODUCTOS.DESCRIPCION%TYPE,
-    p_precio_venta IN PRODUCTOS.PRECIO_VENTA%TYPE,
-    p_precio_costo IN PRODUCTOS.PRECIO_COSTO%TYPE,
-    p_fecha_entrada IN PRODUCTOS.FECHA_ULTIMA_ENTRADA%TYPE,
-    p_id_proveedor IN PRODUCTOS.ID_PROVEEDOR%TYPE,
-    p_id_categoria IN PRODUCTOS.ID_CATEGORIA%TYPE
+    p_nombre         IN PRODUCTOS.NOMBRE%TYPE,
+    p_descripcion    IN PRODUCTOS.DESCRIPCION%TYPE,
+    p_precio_venta   IN PRODUCTOS.PRECIO_VENTA%TYPE,
+    p_precio_costo   IN PRODUCTOS.PRECIO_COSTO%TYPE,
+    p_fecha_entrada  IN PRODUCTOS.FECHA_ULTIMA_ENTRADA%TYPE,
+    p_id_proveedor   IN PRODUCTOS.ID_PROVEEDOR%TYPE,
+    p_id_categoria   IN PRODUCTOS.ID_CATEGORIA%TYPE
 )
 AS
 BEGIN
-    INSERT INTO PRODUCTOS
-    (
+
+    INSERT INTO PRODUCTOS (
         NOMBRE,
         DESCRIPCION,
         PRECIO_VENTA,
@@ -2963,8 +2969,7 @@ BEGIN
         ID_PROVEEDOR,
         ID_CATEGORIA
     )
-    VALUES
-    (
+    VALUES (
         p_nombre,
         p_descripcion,
         p_precio_venta,
@@ -2975,69 +2980,355 @@ BEGIN
     );
 
     COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Producto registrado correctamente.'
+    );
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al registrar el producto: ' || SQLERRM
+        );
+
 END SP_REGISTRAR_PRODUCTO;
+/
 
 
--- Procedimiento 2: Listar todos los productos
+/* =========================================================
+   PROCEDIMIENTO 2: ACTUALIZAR UN PRODUCTO CON NVL
+   ========================================================= */
 
-CREATE OR REPLACE PROCEDURE SP_LISTAR_PRODUCTOS (
+CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_PRODUCTO (
+    p_id_producto    IN PRODUCTOS.ID_PRODUCTO%TYPE,
+    p_nombre         IN PRODUCTOS.NOMBRE%TYPE,
+    p_descripcion    IN PRODUCTOS.DESCRIPCION%TYPE,
+    p_precio_venta   IN PRODUCTOS.PRECIO_VENTA%TYPE,
+    p_precio_costo   IN PRODUCTOS.PRECIO_COSTO%TYPE,
+    p_fecha_entrada  IN PRODUCTOS.FECHA_ULTIMA_ENTRADA%TYPE,
+    p_id_proveedor   IN PRODUCTOS.ID_PROVEEDOR%TYPE,
+    p_id_categoria   IN PRODUCTOS.ID_CATEGORIA%TYPE
+)
+AS
+BEGIN
+
+    UPDATE PRODUCTOS
+    SET
+        NOMBRE = NVL(p_nombre, NOMBRE),
+
+        DESCRIPCION =
+            NVL(p_descripcion, DESCRIPCION),
+
+        PRECIO_VENTA =
+            NVL(p_precio_venta, PRECIO_VENTA),
+
+        PRECIO_COSTO =
+            NVL(p_precio_costo, PRECIO_COSTO),
+
+        FECHA_ULTIMA_ENTRADA =
+            NVL(p_fecha_entrada, FECHA_ULTIMA_ENTRADA),
+
+        ID_PROVEEDOR =
+            NVL(p_id_proveedor, ID_PROVEEDOR),
+
+        ID_CATEGORIA =
+            NVL(p_id_categoria, ID_CATEGORIA)
+
+    WHERE ID_PRODUCTO = p_id_producto;
+
+    IF SQL%ROWCOUNT > 0 THEN
+
+        COMMIT;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Producto actualizado correctamente.'
+        );
+
+    ELSE
+
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe un producto con el ID indicado.'
+        );
+
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al actualizar el producto: ' || SQLERRM
+        );
+
+END SP_ACTUALIZAR_PRODUCTO;
+/
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 3: ELIMINAR UN PRODUCTO
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_ELIMINAR_PRODUCTO (
+    p_id_producto IN PRODUCTOS.ID_PRODUCTO%TYPE
+)
+AS
+    v_cantidad_inventario NUMBER;
+    v_cantidad_ventas     NUMBER;
+BEGIN
+
+    /*
+    Validar si el producto tiene registros asociados
+    en el inventario.
+    */
+
+    SELECT COUNT(*)
+    INTO v_cantidad_inventario
+    FROM PRODUCTOS_SUCURSALES
+    WHERE ID_PRODUCTO = p_id_producto;
+
+
+    /*
+    Validar si el producto tiene registros asociados
+    en las ventas.
+    */
+
+    SELECT COUNT(*)
+    INTO v_cantidad_ventas
+    FROM PRODUCTOS_VENTAS
+    WHERE ID_PRODUCTO = p_id_producto;
+
+
+    IF v_cantidad_inventario > 0
+       OR v_cantidad_ventas > 0 THEN
+
+        RAISE_APPLICATION_ERROR(
+            -20003,
+            'No se puede eliminar el producto porque tiene registros asociados.'
+        );
+
+    END IF;
+
+
+    DELETE FROM PRODUCTOS
+    WHERE ID_PRODUCTO = p_id_producto;
+
+
+    IF SQL%ROWCOUNT > 0 THEN
+
+        COMMIT;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Producto eliminado correctamente.'
+        );
+
+    ELSE
+
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe un producto con el ID indicado.'
+        );
+
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al eliminar el producto: ' || SQLERRM
+        );
+
+END SP_ELIMINAR_PRODUCTO;
+/
+
+
+/* =========================================================
+   PROCEDIMIENTO 4: LISTAR CATEGORÍAS
+   CORRECCIÓN DIRECTA DEL FEEDBACK
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_LISTAR_CATEGORIAS (
     p_cursor OUT SYS_REFCURSOR
 )
 AS
 BEGIN
+
     OPEN p_cursor FOR
+
         SELECT
-            ID_PRODUCTO,
-            NOMBRE,
-            PRECIO_VENTA,
-            ID_CATEGORIA
-        FROM PRODUCTOS
-        ORDER BY ID_PRODUCTO;
-END SP_LISTAR_PRODUCTOS;
+            ID_CATEGORIA,
+            NOMBRE
+        FROM CATEGORIA
+        ORDER BY ID_CATEGORIA;
+
+END SP_LISTAR_CATEGORIAS;
+/
 
 
+/* =========================================================
+   RF-04
+   El sistema deberá administrar el inventario
+   de productos por sucursal.
+
+   Autor: Sebastián Rivera
+   ========================================================= */
 
 
- ----------------------------- RF-04---------------------------------------
- ------------El sistema deberá administrar el inventario de productos por sucursal------------
-    --Autor: Sebastián Rivera--
-
-
--- Procedimiento 1: Registrar inventario
+/* =========================================================
+   PROCEDIMIENTO 1: REGISTRAR INVENTARIO
+   ========================================================= */
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_INVENTARIO (
-    p_cantidad IN PRODUCTOS_SUCURSALES.CANTIDAD%TYPE,
+    p_cantidad    IN PRODUCTOS_SUCURSALES.CANTIDAD%TYPE,
     p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
     p_id_producto IN PRODUCTOS_SUCURSALES.ID_PRODUCTO%TYPE
 )
 AS
 BEGIN
-    INSERT INTO PRODUCTOS_SUCURSALES
-    (
+
+    INSERT INTO PRODUCTOS_SUCURSALES (
         CANTIDAD,
         ID_SUCURSAL,
         ID_PRODUCTO
     )
-    VALUES
-    (
+    VALUES (
         p_cantidad,
         p_id_sucursal,
         p_id_producto
     );
 
     COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Inventario registrado correctamente.'
+    );
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al registrar inventario: ' || SQLERRM
+        );
+
 END SP_REGISTRAR_INVENTARIO;
+/
 
 
--- Procedimiento 2: Listar inventario por sucursal
+/* =========================================================
+   PROCEDIMIENTO 2: ACTUALIZAR INVENTARIO CON NVL
+   ========================================================= */
 
-CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO (
-    p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
-    p_cursor OUT SYS_REFCURSOR
+CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_INVENTARIO (
+    p_id_inventario IN PRODUCTOS_SUCURSALES.ID_PRODUCTOS_SUCURSALES%TYPE,
+    p_cantidad      IN PRODUCTOS_SUCURSALES.CANTIDAD%TYPE,
+    p_id_sucursal   IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
+    p_id_producto   IN PRODUCTOS_SUCURSALES.ID_PRODUCTO%TYPE
 )
 AS
 BEGIN
+
+    UPDATE PRODUCTOS_SUCURSALES
+    SET CANTIDAD =
+            NVL(p_cantidad, CANTIDAD),
+
+        ID_SUCURSAL =
+            NVL(p_id_sucursal, ID_SUCURSAL),
+
+        ID_PRODUCTO =
+            NVL(p_id_producto, ID_PRODUCTO)
+
+    WHERE ID_PRODUCTOS_SUCURSALES = p_id_inventario;
+
+    IF SQL%ROWCOUNT > 0 THEN
+
+        COMMIT;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Inventario actualizado correctamente.'
+        );
+
+    ELSE
+
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe el registro de inventario indicado.'
+        );
+
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al actualizar inventario: ' || SQLERRM
+        );
+
+END SP_ACTUALIZAR_INVENTARIO;
+/
+
+
+/* =========================================================
+   PROCEDIMIENTO 3: ELIMINAR INVENTARIO
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_ELIMINAR_INVENTARIO (
+    p_id_inventario IN PRODUCTOS_SUCURSALES.ID_PRODUCTOS_SUCURSALES%TYPE
+)
+AS
+    v_existe NUMBER;
+BEGIN
+
+    SELECT COUNT(*)
+    INTO v_existe
+    FROM PRODUCTOS_SUCURSALES
+    WHERE ID_PRODUCTOS_SUCURSALES = p_id_inventario;
+
+    IF v_existe = 0 THEN
+
+        RAISE_APPLICATION_ERROR(
+            -20004,
+            'No existe el registro de inventario indicado.'
+        );
+
+    END IF;
+
+    DELETE FROM PRODUCTOS_SUCURSALES
+    WHERE ID_PRODUCTOS_SUCURSALES = p_id_inventario;
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Inventario eliminado correctamente.'
+    );
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al eliminar inventario: ' || SQLERRM
+        );
+
+END SP_ELIMINAR_INVENTARIO;
+/
+
+
+/* =========================================================
+   PROCEDIMIENTO 4: LISTAR INVENTARIO POR SUCURSAL
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO (
+    p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
+    p_cursor      OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
     OPEN p_cursor FOR
+
         SELECT
             ID_PRODUCTOS_SUCURSALES,
             CANTIDAD,
@@ -3045,8 +3336,9 @@ BEGIN
         FROM PRODUCTOS_SUCURSALES
         WHERE ID_SUCURSAL = p_id_sucursal
         ORDER BY ID_PRODUCTOS_SUCURSALES;
-END SP_LISTAR_INVENTARIO;
 
+END SP_LISTAR_INVENTARIO;
+/
 
 -----------------------RF-05 y RF-06 El sistema deberá permitir registrar ventas y devoluciones.---------------------------
 
@@ -3251,6 +3543,561 @@ BEGIN
         ORDER BY p.Nombre;
 END SP_LISTAR_INVENTARIO_VENTA;
 
+
+
+/* =========================================================
+   RF-10
+   El sistema deberá registrar los pagos realizados
+   a los trabajadores.
+
+   Autor: Sebastián Rivera
+   ========================================================= */
+   
+   
+  
+
+/* =========================================================
+   PROCEDIMIENTO 1: REGISTRAR PAGO DE TRABAJADOR
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PAGO_TRABAJADOR (
+    p_anio            IN PAGO_TRABAJADORES.ANIO%TYPE,
+    p_mes             IN PAGO_TRABAJADORES.MES%TYPE,
+    p_quincena        IN PAGO_TRABAJADORES.QUINCENA%TYPE,
+    p_monto_hora      IN PAGO_TRABAJADORES.MONTO_HORA%TYPE,
+    p_horas_laboradas IN PAGO_TRABAJADORES.HORAS_LABORADAS%TYPE,
+    p_id_trabajador   IN PAGO_TRABAJADORES.ID_TRABAJADOR%TYPE
+)
+AS
+    v_trabajador NUMBER;
+    v_monto_total PAGO_TRABAJADORES.MONTO_TOTAL%TYPE;
+BEGIN
+
+    SELECT COUNT(*)
+    INTO v_trabajador
+    FROM TRABAJADORES
+    WHERE ID_TRABAJADOR = p_id_trabajador;
+
+    IF v_trabajador = 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20010,
+            'El trabajador indicado no existe.'
+        );
+    END IF;
+
+    v_monto_total := p_monto_hora * p_horas_laboradas;
+
+    INSERT INTO PAGO_TRABAJADORES (
+        ANIO,
+        MES,
+        QUINCENA,
+        MONTO_HORA,
+        HORAS_LABORADAS,
+        MONTO_TOTAL,
+        ID_TRABAJADOR
+    )
+    VALUES (
+        p_anio,
+        p_mes,
+        p_quincena,
+        p_monto_hora,
+        p_horas_laboradas,
+        v_monto_total,
+        p_id_trabajador
+    );
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Pago registrado correctamente.'
+    );
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al registrar el pago: ' || SQLERRM
+        );
+
+END SP_REGISTRAR_PAGO_TRABAJADOR;
+/
+
+
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 2: ACTUALIZAR PAGO CON NVL
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_PAGO_TRABAJADOR (
+    p_id_pago         IN PAGO_TRABAJADORES.ID_PAGO%TYPE,
+    p_anio            IN PAGO_TRABAJADORES.ANIO%TYPE,
+    p_mes             IN PAGO_TRABAJADORES.MES%TYPE,
+    p_quincena        IN PAGO_TRABAJADORES.QUINCENA%TYPE,
+    p_monto_hora      IN PAGO_TRABAJADORES.MONTO_HORA%TYPE,
+    p_horas_laboradas IN PAGO_TRABAJADORES.HORAS_LABORADAS%TYPE,
+    p_id_trabajador   IN PAGO_TRABAJADORES.ID_TRABAJADOR%TYPE
+)
+AS
+BEGIN
+
+    UPDATE PAGO_TRABAJADORES
+    SET ANIO = NVL(p_anio, ANIO),
+        MES = NVL(p_mes, MES),
+        QUINCENA = NVL(p_quincena, QUINCENA),
+        MONTO_HORA = NVL(p_monto_hora, MONTO_HORA),
+        HORAS_LABORADAS =
+            NVL(p_horas_laboradas, HORAS_LABORADAS),
+        ID_TRABAJADOR =
+            NVL(p_id_trabajador, ID_TRABAJADOR),
+
+        MONTO_TOTAL =
+            NVL(p_monto_hora, MONTO_HORA)
+            *
+            NVL(p_horas_laboradas, HORAS_LABORADAS)
+
+    WHERE ID_PAGO = p_id_pago;
+
+    IF SQL%ROWCOUNT > 0 THEN
+        COMMIT;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Pago actualizado correctamente.'
+        );
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(
+            'No existe el pago indicado.'
+        );
+    END IF;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al actualizar el pago: ' || SQLERRM
+        );
+
+END SP_ACTUALIZAR_PAGO_TRABAJADOR;
+/
+
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 3: ELIMINAR PAGO
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_ELIMINAR_PAGO_TRABAJADOR (
+    p_id_pago IN PAGO_TRABAJADORES.ID_PAGO%TYPE
+)
+AS
+    v_existe NUMBER;
+BEGIN
+
+    SELECT COUNT(*)
+    INTO v_existe
+    FROM PAGO_TRABAJADORES
+    WHERE ID_PAGO = p_id_pago;
+
+    IF v_existe = 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20011,
+            'El pago indicado no existe.'
+        );
+    END IF;
+
+    DELETE FROM PAGO_TRABAJADORES
+    WHERE ID_PAGO = p_id_pago;
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Pago eliminado correctamente.'
+    );
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Error al eliminar el pago: ' || SQLERRM
+        );
+
+END SP_ELIMINAR_PAGO_TRABAJADOR;
+/
+
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 4: CONSULTAR PAGOS POR TRABAJADOR
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_LISTAR_PAGOS_TRABAJADOR (
+    p_id_trabajador IN PAGO_TRABAJADORES.ID_TRABAJADOR%TYPE,
+    p_cursor        OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
+    OPEN p_cursor FOR
+        SELECT
+            P.ID_PAGO,
+            P.ANIO,
+            P.MES,
+            P.QUINCENA,
+            P.MONTO_HORA,
+            P.HORAS_LABORADAS,
+            P.MONTO_TOTAL,
+            P.ID_TRABAJADOR
+        FROM PAGO_TRABAJADORES P
+        WHERE P.ID_TRABAJADOR = p_id_trabajador
+        ORDER BY P.ANIO, P.MES, P.QUINCENA;
+
+END SP_LISTAR_PAGOS_TRABAJADOR;
+/
+
+
+
+
+/* =========================================================
+   RF-11
+   El sistema deberá generar consultas sobre ventas,
+   inventarios, proveedores y clientes.
+
+   Autor: Sebastián Rivera
+   ========================================================= */
+
+
+/* =========================================================
+   PROCEDIMIENTO 1: CONSULTAR VENTAS
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_CONSULTAR_VENTAS (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
+    OPEN p_cursor FOR
+        SELECT
+            ID_VENTA,
+            FECHA_HORA,
+            TOTAL,
+            CEDULA,
+            ID_TRABAJADOR,
+            ID_TIPO_PAGO
+        FROM VENTAS
+        ORDER BY ID_VENTA;
+
+END SP_CONSULTAR_VENTAS;
+/
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 2: CONSULTAR INVENTARIO
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_CONSULTAR_INVENTARIO (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
+    OPEN p_cursor FOR
+        SELECT
+            ID_PRODUCTOS_SUCURSALES,
+            CANTIDAD,
+            ID_SUCURSAL,
+            ID_PRODUCTO
+        FROM PRODUCTOS_SUCURSALES
+        ORDER BY ID_PRODUCTOS_SUCURSALES;
+
+END SP_CONSULTAR_INVENTARIO;
+/
+
+
+/* =========================================================
+   PROCEDIMIENTO 3: CONSULTAR PROVEEDORES
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_CONSULTAR_PROVEEDORES (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
+    OPEN p_cursor FOR
+        SELECT
+            ID_PROVEEDOR,
+            NOMBRE_PROVEEDOR,
+            NOMBRE_CONTACTO,
+            APELLIDO1,
+            APELLIDO2,
+            CORREO_ELECTR,
+            TELEFONO,
+            ESTADO
+        FROM PROVEEDORES
+        ORDER BY ID_PROVEEDOR;
+
+END SP_CONSULTAR_PROVEEDORES;
+/
+
+
+
+/* =========================================================
+   PROCEDIMIENTO 4: CONSULTAR CLIENTES
+   ========================================================= */
+
+CREATE OR REPLACE PROCEDURE SP_CONSULTAR_CLIENTES (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+
+    OPEN p_cursor FOR
+        SELECT
+            CEDULA,
+            NOMBRE,
+            APELLIDO1,
+            APELLIDO2,
+            CORREO_ELECTR,
+            TELEFONO
+        FROM CLIENTES
+        ORDER BY CEDULA;
+
+END SP_CONSULTAR_CLIENTES;
+/
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   TRIGGER RF-03: VALIDAR PRECIOS DEL PRODUCTO
+
+   Autor: Sebastián Rivera
+   Descripción:
+   Impide registrar o actualizar productos con precios
+   menores o iguales a cero.
+   ========================================================= */
+
+CREATE OR REPLACE TRIGGER TRG_VALIDAR_PRECIOS_PRODUCTO
+BEFORE INSERT OR UPDATE ON PRODUCTOS
+FOR EACH ROW
+BEGIN
+
+    IF :NEW.PRECIO_VENTA <= 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20020,
+            'El precio de venta debe ser mayor que cero.'
+        );
+    END IF;
+
+    IF :NEW.PRECIO_COSTO <= 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20021,
+            'El precio de costo debe ser mayor que cero.'
+        );
+    END IF;
+
+END;
+/
+
+
+/* =========================================================
+   TRIGGER RF-04: VALIDAR CANTIDAD DE INVENTARIO
+
+   Autor: Sebastián Rivera
+   Descripción:
+   Impide registrar o actualizar una cantidad negativa
+   en el inventario de una sucursal.
+    */
+
+CREATE OR REPLACE TRIGGER TRG_VALIDAR_CANTIDAD_INVENTARIO
+BEFORE INSERT OR UPDATE ON PRODUCTOS_SUCURSALES
+FOR EACH ROW
+BEGIN
+
+    IF :NEW.CANTIDAD < 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20022,
+            'La cantidad de inventario no puede ser negativa.'
+        );
+    END IF;
+
+END;
+/
+
+
+/* ==
+   TRIGGER RF-10: CALCULAR MONTO TOTAL DEL PAGO
+
+   Sebastián Rivera
+   Descripción:
+   Calcula automáticamente el monto total utilizando
+   el monto por hora y las horas laboradas.
+   == */
+
+CREATE OR REPLACE TRIGGER TRG_CALCULAR_PAGO_TRABAJADOR
+BEFORE INSERT OR UPDATE ON PAGO_TRABAJADORES
+FOR EACH ROW
+BEGIN
+
+    IF :NEW.MONTO_HORA <= 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20023,
+            'El monto por hora debe ser mayor que cero.'
+        );
+    END IF;
+
+    IF :NEW.HORAS_LABORADAS < 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20024,
+            'Las horas laboradas no pueden ser negativas.'
+        );
+    END IF;
+
+    IF :NEW.MES < 1 OR :NEW.MES > 12 THEN
+        RAISE_APPLICATION_ERROR(
+            -20025,
+            'El mes debe estar entre 1 y 12.'
+        );
+    END IF;
+
+    IF :NEW.QUINCENA < 1 OR :NEW.QUINCENA > 2 THEN
+        RAISE_APPLICATION_ERROR(
+            -20026,
+            'La quincena debe ser 1 o 2.'
+        );
+    END IF;
+
+    :NEW.MONTO_TOTAL :=
+        :NEW.MONTO_HORA * :NEW.HORAS_LABORADAS;
+
+END;
+/
+
+
+
+
+--VISTA PRODUCTOS
+
+CREATE OR REPLACE VIEW VW_PRODUCTOS AS
+SELECT
+    ID_PRODUCTO,
+    NOMBRE,
+    PRECIO_VENTA,
+    PRECIO_COSTO,
+    ID_CATEGORIA
+FROM PRODUCTOS;
+/
+
+CREATE OR REPLACE PROCEDURE SP_VISTA_PRODUCTOS (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT
+            ID_PRODUCTO,
+            NOMBRE,
+            PRECIO_VENTA,
+            PRECIO_COSTO,
+            ID_CATEGORIA
+        FROM VW_PRODUCTOS;
+END SP_VISTA_PRODUCTOS;
+/
+
+
+
+--vista inventario
+CREATE OR REPLACE VIEW VW_INVENTARIO AS
+SELECT
+    ID_PRODUCTOS_SUCURSALES,
+    CANTIDAD,
+    ID_SUCURSAL,
+    ID_PRODUCTO
+FROM PRODUCTOS_SUCURSALES;
+/
+
+CREATE OR REPLACE PROCEDURE SP_VISTA_INVENTARIO (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT
+            ID_PRODUCTOS_SUCURSALES,
+            CANTIDAD,
+            ID_SUCURSAL,
+            ID_PRODUCTO
+        FROM VW_INVENTARIO;
+END SP_VISTA_INVENTARIO;
+/
+
+
+--VISTA TRABAJADORES
+CREATE OR REPLACE VIEW VW_PAGOS_TRABAJADORES AS
+SELECT
+    ID_PAGO,
+    ANIO,
+    MES,
+    QUINCENA,
+    MONTO_HORA,
+    HORAS_LABORADAS,
+    MONTO_TOTAL,
+    ID_TRABAJADOR
+FROM PAGO_TRABAJADORES;
+/
+
+CREATE OR REPLACE PROCEDURE SP_VISTA_PAGOS_TRABAJADORES (
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT
+            ID_PAGO,
+            ANIO,
+            MES,
+            QUINCENA,
+            MONTO_HORA,
+            HORAS_LABORADAS,
+            MONTO_TOTAL,
+            ID_TRABAJADOR
+        FROM VW_PAGOS_TRABAJADORES;
+END SP_VISTA_PAGOS_TRABAJADORES;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- ============================================================
 -- BLOQUES DE PRUEBA / EVIDENCIAS
 -- Cambiar los identificadores si los datos de prueba del grupo
@@ -3317,125 +4164,8 @@ BEGIN
     DBMS_SQL.RETURN_RESULT(v_cursor);
 END;
 
---------------------------------------------------------
-
--- Procedimiento Registrar un nuevo producto
-
-CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PRODUCTO (
-
-    p_nombre IN PRODUCTOS.NOMBRE%TYPE,
-    p_descripcion IN PRODUCTOS.DESCRIPCION%TYPE,
-    p_precio_venta IN PRODUCTOS.PRECIO_VENTA%TYPE,
-    p_precio_costo IN PRODUCTOS.PRECIO_COSTO%TYPE,
-    p_fecha_entrada IN PRODUCTOS.FECHA_ULTIMA_ENTRADA%TYPE,
-    p_id_proveedor IN PRODUCTOS.ID_PROVEEDOR%TYPE,
-    p_id_categoria IN PRODUCTOS.ID_CATEGORIA%TYPE
-
-) AS
-
-BEGIN
-
-    INSERT INTO PRODUCTOS
-    (
-        NOMBRE,
-        DESCRIPCION,
-        PRECIO_VENTA,
-        PRECIO_COSTO,
-        FECHA_ULTIMA_ENTRADA,
-        ID_PROVEEDOR,
-        ID_CATEGORIA
-    )
-
-    VALUES
-    (
-        p_nombre,
-        p_descripcion,
-        p_precio_venta,
-        p_precio_costo,
-        p_fecha_entrada,
-        p_id_proveedor,
-        p_id_categoria
-    );
-
-    COMMIT;
-
-END SP_REGISTRAR_PRODUCTO;
-
--- Procedimiento listar todos los productos 
-
-CREATE OR REPLACE PROCEDURE SP_LISTAR_PRODUCTOS (
-
-    p_cursor OUT SYS_REFCURSOR
-
-) AS
-
-BEGIN
-
-    OPEN p_cursor FOR
-
-        SELECT
-            ID_PRODUCTO,
-            NOMBRE,
-            PRECIO_VENTA,
-            ID_CATEGORIA
-        FROM PRODUCTOS
-        ORDER BY ID_PRODUCTO;
-
-END SP_LISTAR_PRODUCTOS;
-
-
--- Objetos de Prueba - Módulo Inventario (RF-04)
--- Procedimiento Registrar inventario
-
-CREATE OR REPLACE PROCEDURE SP_REGISTRAR_INVENTARIO (
-
-    p_cantidad IN PRODUCTOS_SUCURSALES.CANTIDAD%TYPE,
-    p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
-    p_id_producto IN PRODUCTOS_SUCURSALES.ID_PRODUCTO%TYPE
-
-) AS
-
-BEGIN
-
-    INSERT INTO PRODUCTOS_SUCURSALES
-    (
-        CANTIDAD,
-        ID_SUCURSAL,
-        ID_PRODUCTO
-    )
-
-    VALUES
-    (
-        p_cantidad,
-        p_id_sucursal,
-        p_id_producto
-    );
-
-    COMMIT;
-
-END SP_REGISTRAR_INVENTARIO;
 
 
 
--- Procedimiento Listar inventario por sucursal (usa cursor de salida)
 
-CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO (
 
-    p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
-    p_cursor OUT SYS_REFCURSOR
-
-) AS
-
-BEGIN
-
-    OPEN p_cursor FOR
-
-        SELECT
-            ID_PRODUCTOS_SUCURSALES,
-            CANTIDAD,
-            ID_PRODUCTO
-        FROM PRODUCTOS_SUCURSALES
-        WHERE ID_SUCURSAL = p_id_sucursal
-        ORDER BY ID_PRODUCTOS_SUCURSALES;
-
-END SP_LISTAR_INVENTARIO;
