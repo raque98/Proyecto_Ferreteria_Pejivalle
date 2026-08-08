@@ -12520,7 +12520,7 @@ EXCEPTION
         p_total := 0;
         p_mensaje := 'Error al registrar la venta: ' || SQLERRM;
 END SP_REGISTRAR_VENTA;
-
+/
 -- Lista las ventas registradas mediante SYS_REFCURSOR.
 CREATE OR REPLACE PROCEDURE SP_LISTAR_VENTAS (
     p_cursor OUT SYS_REFCURSOR
@@ -12539,6 +12539,7 @@ BEGIN
         FROM VW_DETALLE_VENTAS
         ORDER BY ID_Venta DESC;
 END SP_LISTAR_VENTAS;
+/
 
 -- Lista productos disponibles por sucursal para facilitar la venta.
 CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO_VENTA (
