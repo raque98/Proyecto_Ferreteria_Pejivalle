@@ -12560,9 +12560,111 @@ BEGIN
           AND ps.Cantidad > 0
         ORDER BY p.Nombre;
 END SP_LISTAR_INVENTARIO_VENTA;
+/
 
 -- ============================================================
--- BLOQUES DE PRUEBA / EVIDENCIAS
+-- RF-05 y RF-06
+-- Modificar una venta existente.
+-- Se utiliza NVL para permitir modificar uno o varios datos.
+-- ============================================================
+
+CREATE OR REPLACE PROCEDURE SP_MODIFICAR_VENTA (
+    p_id_venta       IN Ventas.ID_Venta%TYPE,
+    p_cedula         IN Ventas.Cedula%TYPE DEFAULT NULL,
+    p_id_trabajador  IN Ventas.ID_Trabajador%TYPE DEFAULT NULL,
+    p_id_tipo_pago   IN Ventas.ID_Tipo_Pago%TYPE DEFAULT NULL,
+    p_mensaje        OUT VARCHAR2
+)
+IS
+    v_existe_venta NUMBER;
+BEGIN
+
+    -- Validar que la venta exista.
+    SELECT COUNT(*)
+      INTO v_existe_venta
+      FROM Ventas
+     WHERE ID_Venta = p_id_venta;
+
+    IF v_existe_venta = 0 THEN
+        p_mensaje := 'La venta indicada no existe.';
+        RETURN;
+    END IF;
+
+    -- Modificar solamente los datos enviados.
+    UPDATE Ventas
+       SET Cedula        = NVL(p_cedula, Cedula),
+           ID_Trabajador = NVL(p_id_trabajador, ID_Trabajador),
+           ID_Tipo_Pago  = NVL(p_id_tipo_pago, ID_Tipo_Pago)
+     WHERE ID_Venta = p_id_venta;
+
+    COMMIT;
+
+    p_mensaje := 'Venta modificada correctamente.';
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        p_mensaje := 'Error al modificar la venta: ' || SQLERRM;
+
+END SP_MODIFICAR_VENTA;
+/
+
+-- ============================================================
+-- RF-05 y RF-06
+-- Eliminar una venta.
+-- Antes de eliminar se valida que no tenga registros asociados.
+-- ============================================================
+
+CREATE OR REPLACE PROCEDURE SP_ELIMINAR_VENTA (
+    p_id_venta IN Ventas.ID_Venta%TYPE,
+    p_mensaje  OUT VARCHAR2
+)
+IS
+    v_existe_venta NUMBER;
+    v_detalles     NUMBER;
+BEGIN
+
+    -- Validar que la venta exista.
+    SELECT COUNT(*)
+      INTO v_existe_venta
+      FROM Ventas
+     WHERE ID_Venta = p_id_venta;
+
+    IF v_existe_venta = 0 THEN
+        p_mensaje := 'La venta indicada no existe.';
+        RETURN;
+    END IF;
+
+    -- Validar si existen productos asociados a la venta.
+    SELECT COUNT(*)
+      INTO v_detalles
+      FROM Productos_Ventas
+     WHERE ID_Venta = p_id_venta;
+
+    IF v_detalles > 0 THEN
+        p_mensaje :=
+            'No se puede eliminar la venta porque tiene productos asociados.';
+        RETURN;
+    END IF;
+
+    -- Eliminar la venta si no tiene registros asociados.
+    DELETE FROM Ventas
+     WHERE ID_Venta = p_id_venta;
+
+    COMMIT;
+
+    p_mensaje := 'Venta eliminada correctamente.';
+
+EXCEPTION
+    WHEN OTHERS THEN
+        ROLLBACK;
+        p_mensaje := 'Error al eliminar la venta: ' || SQLERRM;
+
+END SP_ELIMINAR_VENTA;
+/
+
+-- ============================================================
+-- BLOQUES DE PRUEBA y EVIDENCIAS
 -- Cambiar los identificadores si los datos de prueba del grupo
 -- utilizan otros valores.
 -- ============================================================
