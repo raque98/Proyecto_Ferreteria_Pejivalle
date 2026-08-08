@@ -635,9 +635,9 @@ class MenuFerreteria:
         for row in rows:
             print(f"{row[0]:<3} | {row[1]}")
 
-
+    
     # Menu: Ventas
-  
+
     def menu_ventas(self):
         while True:
             print("\n" + "-"*40)
@@ -648,6 +648,8 @@ class MenuFerreteria:
             print("3. Ver inventario por sucursal")
             print("4. Ver métodos de pago")
             print("5. Buscar detalle de venta por ID")
+            print("6. Modificar venta")
+            print("7. Eliminar venta")
             print("0. Volver")
 
             opcion = input("Seleccione: ")
@@ -664,6 +666,10 @@ class MenuFerreteria:
                 self.mostrar_metodos_pago_venta()
             elif opcion == "5":
                 self.buscar_venta()
+            elif opcion == "6":
+                self.modificar_venta()
+            elif opcion == "7":
+                self.eliminar_venta()
             else:
                 print("Opcion no valida.")
 
@@ -672,8 +678,10 @@ class MenuFerreteria:
         if not rows:
             print("No hay metodos de pago registrados.")
             return
+
         print("\nID | Metodo de pago")
         print("-"*30)
+
         for row in rows:
             print(f"{row[0]:<2} | {row[1]}")
 
@@ -685,17 +693,23 @@ class MenuFerreteria:
             return
 
         rows = self.dao_ventas.listar_inventario(id_sucursal)
+
         if not rows:
             print("No hay productos disponibles para esa sucursal.")
             return
 
         print("\nID | Producto | Precio | Existencia")
         print("-"*65)
+
         for row in rows:
-            print(f"{row[0]:<3} | {row[1]:<25} | {row[2]:>10} | {row[3]}")
+            print(
+                f"{row[0]:<3} | {row[1]:<25} | "
+                f"{row[2]:>10} | {row[3]}"
+            )
 
     def registrar_venta(self):
         print("\n--- Registrar Venta ---")
+
         try:
             cedula = input("Cedula del cliente: ").strip()
             id_trabajador = int(input("ID del trabajador: "))
@@ -703,8 +717,12 @@ class MenuFerreteria:
             id_producto = int(input("ID del producto: "))
             cantidad = int(input("Cantidad: "))
             id_sucursal = int(input("ID de la sucursal: "))
+
         except ValueError:
-            print("Trabajador, metodo de pago, producto, cantidad y sucursal deben ser numericos.")
+            print(
+                "Trabajador, metodo de pago, producto, cantidad "
+                "y sucursal deben ser numericos."
+            )
             return
 
         resultado = self.dao_ventas.registrar(
@@ -717,18 +735,24 @@ class MenuFerreteria:
         )
 
         print(f"Resultado: {resultado['mensaje']}")
+
         if resultado["ok"]:
             print(f"ID de venta: {resultado['id_venta']}")
             print(f"Total: {resultado['total']}")
 
     def mostrar_ventas(self):
         rows = self.dao_ventas.consultar_todas()
+
         if not rows:
             print("No hay ventas registradas.")
             return
 
-        print("\nID | Fecha | Cedula | Cliente | Trabajador | Metodo | Total")
+        print(
+            "\nID | Fecha | Cedula | Cliente | "
+            "Trabajador | Metodo | Total"
+        )
         print("-"*120)
+
         for row in rows:
             print(
                 f"{row[0]} | {row[1]} | {row[2]} | {row[3]} | "
@@ -737,13 +761,15 @@ class MenuFerreteria:
 
     def buscar_venta(self):
         print("\n--- Buscar Detalle de Venta ---")
+
         try:
             id_venta = int(input("ID de la venta: "))
         except ValueError:
             print("El ID debe ser numerico.")
             return
-        
+
         row = self.dao_ventas.ver_detalle_venta(id_venta)
+
         if row:
             print("\n--- Detalle de Venta ---")
             print(f"ID Venta: {row[0]}")
@@ -753,7 +779,67 @@ class MenuFerreteria:
             print(f"Trabajador: {row[4]}")
             print(f"Método de Pago: {row[5]}")
             print(f"Total: {row[6]:,.2f}")
+        else:
+            print("No se encontro la venta indicada.")
 
+    def modificar_venta(self):
+        print("\n--- Modificar Venta ---")
+
+        try:
+            id_venta = int(input("ID de la venta a modificar: "))
+        except ValueError:
+            print("El ID de la venta debe ser numerico.")
+            return
+
+        print(
+            "Deje el campo vacio si no desea modificar ese dato."
+        )
+
+        cedula = input("Nueva cedula del cliente: ").strip()
+        trabajador = input("Nuevo ID del trabajador: ").strip()
+        tipo_pago = input("Nuevo ID del metodo de pago: ").strip()
+
+        cedula = cedula if cedula else None
+
+        try:
+            id_trabajador = int(trabajador) if trabajador else None
+            id_tipo_pago = int(tipo_pago) if tipo_pago else None
+        except ValueError:
+            print(
+                "El ID del trabajador y el metodo de pago "
+                "deben ser numericos."
+            )
+            return
+
+        resultado = self.dao_ventas.modificar_venta(
+            id_venta,
+            cedula,
+            id_trabajador,
+            id_tipo_pago
+        )
+
+        print(f"Resultado: {resultado['mensaje']}")
+
+    def eliminar_venta(self):
+        print("\n--- Eliminar Venta ---")
+
+        try:
+            id_venta = int(input("ID de la venta a eliminar: "))
+        except ValueError:
+            print("El ID de la venta debe ser numerico.")
+            return
+
+        confirmar = input(
+            "¿Esta seguro de eliminar la venta? (s/n): "
+        ).strip().lower()
+
+        if confirmar != "s":
+            print("Operacion cancelada.")
+            return
+
+        resultado = self.dao_ventas.eliminar_venta(id_venta)
+
+        print(f"Resultado: {resultado['mensaje']}")
 
     # Menu: Devoluciones
 
