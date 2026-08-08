@@ -348,18 +348,15 @@ class DAOVentas:
     # ==========================================================
 
     def modificar_venta(
-        self,
+self,
         id_venta,
-        id_tipo_pago=None,
-        id_trabajador=None
+        cedula=None,
+        id_trabajador=None,
+        id_tipo_pago=None
     ):
         """
-        Modifica los datos permitidos de una venta.
-
-        Los parámetros pueden enviarse como None.
-        El procedimiento de Oracle utiliza NVL para
-        conservar el dato existente cuando no se
-        desea modificar.
+        Modifica una venta existente.
+        Los datos enviados como None mantienen su valor actual.
         """
 
         cursor = None
@@ -378,8 +375,9 @@ class DAOVentas:
                 "SP_MODIFICAR_VENTA",
                 [
                     id_venta,
-                    id_tipo_pago,
+                    cedula,
                     id_trabajador,
+                    id_tipo_pago,
                     mensaje
                 ]
             )
@@ -390,12 +388,7 @@ class DAOVentas:
             )
 
             if texto.lower().startswith("error"):
-
                 self.connection.rollback()
-
-                print(
-                    f"   {texto}"
-                )
 
                 return {
                     "ok": False,
@@ -404,9 +397,7 @@ class DAOVentas:
 
             self.connection.commit()
 
-            print(
-                f"   {texto}"
-            )
+            print(f"   {texto}")
 
             return {
                 "ok": True,
@@ -414,7 +405,6 @@ class DAOVentas:
             }
 
         except oracledb.Error as error:
-
             self.connection.rollback()
 
             print(
