@@ -11,7 +11,8 @@ class DAOClientes:
     def registrar(self, cedula, nombre, apellido1, apellido2, correo, telefono):
         try:
             cursor = self.connection.cursor()
-            cursor.callproc("registrar_cliente", [cedula, nombre, apellido1, apellido2, correo, telefono])
+            cursor.callproc("PK_CLIENTES.registrar_cliente",
+                             [cedula, nombre, apellido1, apellido2, correo, telefono])
             self.connection.commit()
             cursor.close()
             print("Cliente registrado con éxito.")
@@ -22,12 +23,11 @@ class DAOClientes:
     def consultar_todos(self):
         try:
             cursor = self.connection.cursor()
-            result = cursor.var(oracledb.CURSOR)
-            cursor.callproc("consultar_clientes", [result])
-            cursor = result.getvalue()
-            rows = cursor.fetchall()
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_CLIENTES.consultar_clientes", [resultado])
+            filas = resultado.getvalue().fetchall()
             cursor.close()
-            return rows
+            return filas
         except Exception as e:
             print(f"Error al consultar clientes: {e}")
             return []
@@ -36,7 +36,8 @@ class DAOClientes:
     def editar_correo_telefono(self, cedula, correo, telefono):
         try:
             cursor = self.connection.cursor()
-            cursor.callproc("editar_correo_telefono_cliente", [cedula, correo, telefono])
+            cursor.callproc("PK_CLIENTES.editar_correo_telefono_cliente",
+                             [cedula, correo, telefono])
             self.connection.commit()
             cursor.close()
             print("Datos del cliente actualizados con éxito.")
@@ -47,21 +48,20 @@ class DAOClientes:
     def eliminar(self, cedula):
         try:
             cursor = self.connection.cursor()
-            cursor.callproc("eliminar_cliente", [cedula])
+            cursor.callproc("PK_CLIENTES.eliminar_cliente", [cedula])
             self.connection.commit()
             cursor.close()
             print("Cliente eliminado con éxito.")
         except Exception as e:
             print(f"Error al eliminar cliente: {e}")
 
-    # 5. Verificar si un cliente existe (usa función)
+    # 5. Verificar si un cliente existe (es una FUNCTION, se llama con callfunc)
     def existe(self, cedula):
         try:
             cursor = self.connection.cursor()
-            result = cursor.var(int)
-            cursor.callproc("existe_cliente", [cedula, result])
+            resultado = cursor.callfunc("PK_CLIENTES.existe_cliente", oracledb.NUMBER, [cedula])
             cursor.close()
-            return result.getvalue() > 0
+            return resultado > 0
         except Exception as e:
             print(f"Error al verificar cliente: {e}")
             return False
@@ -70,12 +70,11 @@ class DAOClientes:
     def mostrar_historial_compras(self):
         try:
             cursor = self.connection.cursor()
-            result = cursor.var(oracledb.CURSOR)
-            cursor.callproc("mostrar_clientes_compras", [result])
-            cursor = result.getvalue()
-            rows = cursor.fetchall()
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_CLIENTES.mostrar_vw_clientes_compras", [resultado])
+            filas = resultado.getvalue().fetchall()
             cursor.close()
-            return rows
+            return filas
         except Exception as e:
             print(f"Error al mostrar historial: {e}")
             return []

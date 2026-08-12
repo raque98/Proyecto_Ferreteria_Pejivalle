@@ -8,20 +8,16 @@ class DAOTipoDevoluciones:
         self.connection = connection
 
     def listar_todos(self):
+        """Lista todos los tipos de devolución usando PK_TIPO_DEVOLUCIONES.SP_LISTAR_TIPOS_DEVOLUCION."""
         cursor = None
         try:
             cursor = self.connection.cursor()
-            print(">> Consultando tipos de devolución...")
-            cursor.execute("""
-                SELECT 
-                    ID_Tipo_Devolucion,
-                    Tipo_Devolucion
-                FROM Tipo_Devoluciones
-                ORDER BY Tipo_Devolucion
-            """)
-            rows = cursor.fetchall()
-            print(f"   Se encontraron {len(rows)} tipo(s) de devolución.")
-            return rows
+            print(">> Ejecutando PK_TIPO_DEVOLUCIONES.SP_LISTAR_TIPOS_DEVOLUCION...")
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_TIPO_DEVOLUCIONES.SP_LISTAR_TIPOS_DEVOLUCION", [resultado])
+            filas = resultado.getvalue().fetchall()
+            print(f"   Se encontraron {len(filas)} tipo(s) de devolución.")
+            return filas
         except oracledb.Error as error:
             print(f"Error al listar tipos de devolución: {error}")
             return []
@@ -29,26 +25,51 @@ class DAOTipoDevoluciones:
             if cursor is not None:
                 cursor.close()
 
-    def buscar_por_id(self, id_tipo_devolucion):
+    def registrar(self, tipo_devolucion):
+        """Registra un tipo de devolución usando PK_TIPO_DEVOLUCIONES.SP_REGISTRAR_TIPO_DEVOLUCION."""
         cursor = None
         try:
             cursor = self.connection.cursor()
-            cursor.execute("""
-                SELECT 
-                    ID_Tipo_Devolucion,
-                    Tipo_Devolucion
-                FROM Tipo_Devoluciones
-                WHERE ID_Tipo_Devolucion = :id_tipo_devolucion
-            """, {'id_tipo_devolucion': id_tipo_devolucion})
-            row = cursor.fetchone()
-            if row:
-                print(f"   Tipo de devolución encontrado: {row[1]}")
-            else:
-                print(f"   No se encontró el tipo de devolución con ID {id_tipo_devolucion}")
-            return row
+            cursor.callproc("PK_TIPO_DEVOLUCIONES.SP_REGISTRAR_TIPO_DEVOLUCION", [tipo_devolucion])
+            self.connection.commit()
+            print("   Tipo de devolución registrado con éxito.")
+            return True
         except oracledb.Error as error:
-            print(f"Error al buscar tipo de devolución: {error}")
-            return None
+            print(f"Error al registrar tipo de devolución: {error}")
+            return False
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+    def actualizar(self, id_tipo_devolucion, tipo_devolucion):
+        """Actualiza un tipo de devolución usando PK_TIPO_DEVOLUCIONES.SP_ACTUALIZAR_TIPO_DEVOLUCION (admite NVL)."""
+        cursor = None
+        try:
+            cursor = self.connection.cursor()
+            cursor.callproc("PK_TIPO_DEVOLUCIONES.SP_ACTUALIZAR_TIPO_DEVOLUCION", [id_tipo_devolucion, tipo_devolucion])
+            self.connection.commit()
+            print("   Tipo de devolución actualizado con éxito.")
+            return True
+        except oracledb.Error as error:
+            print(f"Error al actualizar tipo de devolución: {error}")
+            return False
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+    def eliminar(self, id_tipo_devolucion):
+        """Elimina un tipo de devolución usando PK_TIPO_DEVOLUCIONES.SP_ELIMINAR_TIPO_DEVOLUCION
+        (el procedimiento ya valida que no tenga devoluciones asociadas)."""
+        cursor = None
+        try:
+            cursor = self.connection.cursor()
+            cursor.callproc("PK_TIPO_DEVOLUCIONES.SP_ELIMINAR_TIPO_DEVOLUCION", [id_tipo_devolucion])
+            self.connection.commit()
+            print("   Tipo de devolución eliminado con éxito.")
+            return True
+        except oracledb.Error as error:
+            print(f"Error al eliminar tipo de devolución: {error}")
+            return False
         finally:
             if cursor is not None:
                 cursor.close()

@@ -1,5 +1,5 @@
 # dao/dao_sucursales.py
-# Descripción: DAO para gestionar sucursales
+# Descripción: DAO para gestionar sucursales e inventario
 
 import oracledb
 
@@ -8,125 +8,128 @@ class DAOSucursales:
         self.connection = connection
 
     def listar_todas(self):
+        """Lista sucursales activas usando PK_SUCURSALES.SP_LISTAR_SUCURSALES."""
         cursor = None
+        result_cursor = None
         try:
             cursor = self.connection.cursor()
-            print(">> Consultando sucursales...")
-            cursor.execute("""
-                SELECT 
-                    ID_Sucursal,
-                    Nombre,
-                    Estado
-                FROM Sucursales
-                WHERE Estado = 'Activo'
-                ORDER BY Nombre
-            """)
-            rows = cursor.fetchall()
-            print(f"   Se encontraron {len(rows)} sucursal(es).")
-            return rows
+            print(">> Ejecutando PK_SUCURSALES.SP_LISTAR_SUCURSALES...")
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_SUCURSALES.SP_LISTAR_SUCURSALES", [resultado])
+
+            result_cursor = resultado.getvalue()
+            if result_cursor is None:
+                print("   Error: El cursor devuelto es NULL")
+                return []
+
+            filas = result_cursor.fetchall()
+            print(f"   Se encontraron {len(filas)} sucursal(es).")
+            return filas
+
         except oracledb.Error as error:
             print(f"Error al listar sucursales: {error}")
             return []
         finally:
-            if cursor is not None:
-                cursor.close()
-
-    def buscar_por_id(self, id_sucursal):
-        cursor = None
-        try:
-            cursor = self.connection.cursor()
-            cursor.execute("""
-                SELECT 
-                    ID_Sucursal,
-                    Nombre,
-                    Estado
-                FROM Sucursales
-                WHERE ID_Sucursal = :id_sucursal
-            """, {'id_sucursal': id_sucursal})
-            row = cursor.fetchone()
-            if row:
-                print(f"   Sucursal encontrada: {row[1]}")
-            else:
-                print(f"   No se encontró la sucursal con ID {id_sucursal}")
-            return row
-        except oracledb.Error as error:
-            print(f"Error al buscar sucursal: {error}")
-            return None
-        finally:
+            if result_cursor is not None:
+                try:
+                    result_cursor.close()
+                except:
+                    pass
             if cursor is not None:
                 cursor.close()
 
     def listar_todas_con_direccion(self):
+        """Lista sucursales con su dirección usando PK_SUCURSALES.SP_LISTAR_SUCURSALES_CON_DIRECCION."""
         cursor = None
+        result_cursor = None
         try:
             cursor = self.connection.cursor()
             print(">> Consultando sucursales con dirección...")
-            cursor.execute("""
-                SELECT 
-                    s.ID_Sucursal,
-                    s.Nombre,
-                    s.Estado,
-                    d.Detalle AS Direccion
-                FROM Sucursales s
-                JOIN Sucursales_Direcciones sd ON s.ID_Sucursal = sd.ID_Sucursal
-                JOIN Direcciones d ON sd.ID_Direccion = d.ID_Direccion
-                WHERE s.Estado = 'Activo'
-                ORDER BY s.Nombre
-            """)
-            rows = cursor.fetchall()
-            print(f"   Se encontraron {len(rows)} sucursal(es) con dirección.")
-            return rows
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_SUCURSALES.SP_LISTAR_SUCURSALES_CON_DIRECCION", [resultado])
+
+            result_cursor = resultado.getvalue()
+            if result_cursor is None:
+                print("   Error: El cursor devuelto es NULL")
+                return []
+
+            filas = result_cursor.fetchall()
+            print(f"   Se encontraron {len(filas)} sucursal(es) con dirección.")
+            return filas
+
         except oracledb.Error as error:
             print(f"Error al listar sucursales con dirección: {error}")
             return []
         finally:
-            if cursor is not None:
-                cursor.close()
-
-    def registrar_inventario(self, cantidad, id_sucursal, id_producto):
-        cursor = None
-        try:
-            cursor = self.connection.cursor()
-            print(f">> Ejecutando SP_REGISTRAR_INVENTARIO en la base de datos...")
-            print(f"   Producto: {id_producto}, Cantidad: {cantidad}, Sucursal: {id_sucursal}")
-            
-            cursor.callproc("SP_REGISTRAR_INVENTARIO", [
-                cantidad,
-                id_sucursal,
-                id_producto
-            ])
-            self.connection.commit()
-            print("   Inventario registrado con éxito.")
-            return True
-        except oracledb.Error as error:
-            print(f"Error al registrar inventario: {error}")
-            return False
-        finally:
+            if result_cursor is not None:
+                try:
+                    result_cursor.close()
+                except:
+                    pass
             if cursor is not None:
                 cursor.close()
 
     def listar_inventario_por_sucursal(self, id_sucursal):
+        """Lista el inventario de una sucursal usando PK_INVENTARIO.SP_LISTAR_INVENTARIO.
+
+        NOTA: se usa execute() con bloque PL/SQL explícito en vez de callproc()
+        porque callproc() se queda colgado en el paso de "describe" cuando el
+        procedimiento pertenece a un paquete y combina un IN con un SYS_REFCURSOR
+        de salida (bug conocido de python-oracledb en modo thin).
+        """
         cursor = None
+        result_cursor = None
         try:
             cursor = self.connection.cursor()
             print(f">> Consultando inventario de sucursal {id_sucursal}...")
-            cursor.execute("""
-                SELECT 
-                    ps.ID_PRODUCTOS_SUCURSALES,
-                    ps.CANTIDAD,
-                    p.NOMBRE AS PRODUCTO,
-                    p.ID_PRODUCTO
-                FROM PRODUCTOS_SUCURSALES ps
-                JOIN PRODUCTOS p ON p.ID_PRODUCTO = ps.ID_PRODUCTO
-                WHERE ps.ID_SUCURSAL = :id_sucursal
-                ORDER BY p.NOMBRE
-            """, {'id_sucursal': id_sucursal})
-            rows = cursor.fetchall()
-            print(f"   Se encontraron {len(rows)} registro(s) de inventario.")
-            return rows
+            resultado = cursor.var(oracledb.CURSOR)
+
+            cursor.execute(
+                """
+                BEGIN
+                    PK_INVENTARIO.SP_LISTAR_INVENTARIO(:id_sucursal, :cur);
+                END;
+                """,
+                id_sucursal=id_sucursal,
+                cur=resultado
+            )
+
+            result_cursor = resultado.getvalue()
+            if result_cursor is None:
+                print("   Error: El cursor devuelto es NULL")
+                return []
+
+            filas = result_cursor.fetchall()
+            print(f"   Se encontraron {len(filas)} registro(s) de inventario.")
+            return filas
+
         except oracledb.Error as error:
             print(f"Error al listar inventario: {error}")
             return []
+        finally:
+            if result_cursor is not None:
+                try:
+                    result_cursor.close()
+                except:
+                    pass
+            if cursor is not None:
+                cursor.close()
+
+    def registrar_inventario(self, cantidad, id_sucursal, id_producto):
+        """Registra inventario usando PK_INVENTARIO.SP_REGISTRAR_INVENTARIO."""
+        cursor = None
+        try:
+            cursor = self.connection.cursor()
+            print(">> Ejecutando PK_INVENTARIO.SP_REGISTRAR_INVENTARIO...")
+            cursor.callproc("PK_INVENTARIO.SP_REGISTRAR_INVENTARIO", [cantidad, id_sucursal, id_producto])
+            self.connection.commit()
+            print("   Inventario registrado con éxito.")
+            return True
+
+        except oracledb.Error as error:
+            print(f"Error al registrar inventario: {error}")
+            self.connection.rollback()
+            return False
         finally:
             if cursor is not None:
                 cursor.close()

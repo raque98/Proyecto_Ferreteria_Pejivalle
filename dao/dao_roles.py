@@ -8,22 +8,16 @@ class DAORoles:
         self.connection = connection
 
     def listar_todos(self):
-        """Lista todos los roles."""
+        """Lista todos los roles usando PK_ROLES.SP_LISTAR_ROLES."""
         cursor = None
         try:
             cursor = self.connection.cursor()
-            print(">> Consultando roles...")
-            cursor.execute("""
-                SELECT 
-                    ID_Rol,
-                    Rol
-                FROM Roles
-                ORDER BY Rol
-            """)
-            rows = cursor.fetchall()
-            cursor.close()
-            print(f"   Se encontraron {len(rows)} rol(es).")
-            return rows
+            print(">> Ejecutando PK_ROLES.SP_LISTAR_ROLES...")
+            resultado = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_ROLES.SP_LISTAR_ROLES", [resultado])
+            filas = resultado.getvalue().fetchall()
+            print(f"   Se encontraron {len(filas)} rol(es).")
+            return filas
         except oracledb.Error as error:
             print(f"Error al listar roles: {error}")
             return []
@@ -31,28 +25,51 @@ class DAORoles:
             if cursor is not None:
                 cursor.close()
 
-    def buscar_por_id(self, id_rol):
-        """Busca un rol por su ID."""
+    def registrar(self, rol):
+        """Registra un rol usando PK_ROLES.SP_REGISTRAR_ROL."""
         cursor = None
         try:
             cursor = self.connection.cursor()
-            cursor.execute("""
-                SELECT 
-                    ID_Rol,
-                    Rol
-                FROM Roles
-                WHERE ID_Rol = :id_rol
-            """, {'id_rol': id_rol})
-            row = cursor.fetchone()
-            cursor.close()
-            if row:
-                print(f"   Rol encontrado: {row[1]}")
-            else:
-                print(f"   No se encontró el rol con ID {id_rol}")
-            return row
+            cursor.callproc("PK_ROLES.SP_REGISTRAR_ROL", [rol])
+            self.connection.commit()
+            print("   Rol registrado con éxito.")
+            return True
         except oracledb.Error as error:
-            print(f"Error al buscar rol: {error}")
-            return None
+            print(f"Error al registrar rol: {error}")
+            return False
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+    def actualizar(self, id_rol, rol):
+        """Actualiza un rol usando PK_ROLES.SP_ACTUALIZAR_ROL (admite NVL)."""
+        cursor = None
+        try:
+            cursor = self.connection.cursor()
+            cursor.callproc("PK_ROLES.SP_ACTUALIZAR_ROL", [id_rol, rol])
+            self.connection.commit()
+            print("   Rol actualizado con éxito.")
+            return True
+        except oracledb.Error as error:
+            print(f"Error al actualizar rol: {error}")
+            return False
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+    def eliminar(self, id_rol):
+        """Elimina un rol usando PK_ROLES.SP_ELIMINAR_ROL
+        (el procedimiento ya valida que no tenga trabajadores asociados)."""
+        cursor = None
+        try:
+            cursor = self.connection.cursor()
+            cursor.callproc("PK_ROLES.SP_ELIMINAR_ROL", [id_rol])
+            self.connection.commit()
+            print("   Rol eliminado con éxito.")
+            return True
+        except oracledb.Error as error:
+            print(f"Error al eliminar rol: {error}")
+            return False
         finally:
             if cursor is not None:
                 cursor.close()

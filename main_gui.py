@@ -392,8 +392,8 @@ class FerreteriaGUI:
         if not rows:
             self.mostrar_resultados("No hay proveedores registrados.")
             return
-        self.mostrar_tabla(["Proveedor", "Contacto", "Apellido1", "Apellido2", "Correo", "Teléfono", "Estado"], 
-                          rows, "--- Lista de Proveedores ---")
+        self.mostrar_tabla(["ID", "Proveedor", "Contacto", "Apellido1", "Apellido2", "Correo", "Teléfono", "Estado"], 
+                        rows, "--- Lista de Proveedores ---")
     
     def registrar_proveedor_gui(self):
         ventana = tk.Toplevel(self.root)
@@ -601,8 +601,8 @@ class FerreteriaGUI:
         if not rows:
             self.mostrar_resultados("No hay productos registrados.")
             return
-        self.mostrar_tabla(["ID", "Nombre", "Precio Venta", "Precio Costo"], 
-                          rows, "--- Lista de Productos ---")
+        self.mostrar_tabla(["ID", "Nombre", "Precio Venta", "ID Categoría"], 
+                        rows, "--- Lista de Productos ---")
     
     def buscar_producto_gui(self):
         ventana = tk.Toplevel(self.root)
@@ -767,7 +767,7 @@ class FerreteriaGUI:
     def ver_inventario_gui(self):
         ventana = tk.Toplevel(self.root)
         ventana.title("Ver Inventario")
-        ventana.geometry("400x200")
+        ventana.geometry("500x300")
         ventana.resizable(False, False)
         
         frame = ttk.Frame(ventana, padding="10")
@@ -785,7 +785,8 @@ class FerreteriaGUI:
                 if not rows:
                     self.mostrar_resultados("No hay inventario en esta sucursal.")
                     return
-                self.mostrar_tabla(["ID", "Cantidad", "Producto"], rows, "--- Inventario ---")
+                self.mostrar_tabla(["ID", "Cantidad", "Producto ID", "Producto", "Precio"], 
+                                rows, "--- Inventario ---")
                 ventana.destroy()
             except Exception as e:
                 messagebox.showerror("Error", f"No se pudo listar: {e}")
@@ -824,7 +825,7 @@ class FerreteriaGUI:
     def buscar_trabajador_gui(self):
         ventana = tk.Toplevel(self.root)
         ventana.title("Buscar Trabajador")
-        ventana.geometry("400x200")
+        ventana.geometry("400x250")
         ventana.resizable(False, False)
         
         frame = ttk.Frame(ventana, padding="10")
@@ -842,12 +843,11 @@ class FerreteriaGUI:
                 if row:
                     texto = f"--- TRABAJADOR ---\n"
                     texto += f"ID: {row[0]}\n"
-                    texto += f"Nombre: {row[1]} {row[2]} {row[3]}\n"
+                    texto += f"Nombre: {row[1]} {row[2]}\n"
+                    if row[3]:
+                        texto += f"Segundo apellido: {row[3]}\n"
                     texto += f"Correo: {row[4]}\n"
                     texto += f"Estado: {row[5]}\n"
-                    texto += f"Sucursal ID: {row[6]}\n"
-                    texto += f"Turno ID: {row[7]}\n"
-                    texto += f"Rol ID: {row[8]}"
                     self.mostrar_resultados(texto)
                 else:
                     self.mostrar_resultados("No se encontró el trabajador.")

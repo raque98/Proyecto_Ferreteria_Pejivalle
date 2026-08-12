@@ -1,9 +1,7 @@
--- ============================================================
+-- ---------------------------
 --   TALLER PEJIVALLE 
 --   Curso: SC-504 Lenguajes de bases de datos
--- ============================================================
-
-
+-- ---------------------------
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Devolucion        CASCADE CONSTRAINTS';
@@ -11,7 +9,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Productos_Ventas  CASCADE CONSTRAINTS';
@@ -19,7 +16,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Ventas            CASCADE CONSTRAINTS';
@@ -27,7 +23,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Pago_Trabajadores CASCADE CONSTRAINTS';
@@ -35,7 +30,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Telefonos         CASCADE CONSTRAINTS';
@@ -43,7 +37,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Trabajadores      CASCADE CONSTRAINTS';
@@ -51,7 +44,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Productos_Sucursales  CASCADE CONSTRAINTS';
@@ -59,7 +51,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Sucursales_Direcciones CASCADE CONSTRAINTS';
@@ -67,7 +58,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Clientes_Direcciones  CASCADE CONSTRAINTS';
@@ -75,7 +65,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Proveedores_Direcciones CASCADE CONSTRAINTS';
@@ -83,7 +72,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Productos         CASCADE CONSTRAINTS';
@@ -91,7 +79,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Clientes          CASCADE CONSTRAINTS';
@@ -99,7 +86,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Sucursales        CASCADE CONSTRAINTS';
@@ -107,7 +93,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Proveedores       CASCADE CONSTRAINTS';
@@ -115,7 +100,6 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Direcciones       CASCADE CONSTRAINTS';
@@ -123,7 +107,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Tipo_Devoluciones CASCADE CONSTRAINTS';
@@ -131,7 +115,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Tipo_Pagos        CASCADE CONSTRAINTS';
@@ -139,7 +123,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Categoria         CASCADE CONSTRAINTS';
@@ -147,7 +131,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Roles             CASCADE CONSTRAINTS';
@@ -155,7 +139,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Turnos            CASCADE CONSTRAINTS';
@@ -163,7 +147,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Distrito          CASCADE CONSTRAINTS';
@@ -171,7 +155,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Canton            CASCADE CONSTRAINTS';
@@ -179,7 +163,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE Provincia         CASCADE CONSTRAINTS';
@@ -187,7 +171,7 @@ EXCEPTION
     WHEN OTHERS THEN
         NULL;
 END;
-/
+
 
 COMMIT;
 
@@ -10663,14 +10647,12 @@ INSERT INTO devolucion (
 COMMIT;
 
 
-
-
+----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------RF-01 El sistema deberá permitir registrar clientes con sus datos personales y de contacto.---------------------------
 
 /*--------------------
 Paquete clientes
-
 */---------------------
 CREATE OR REPLACE PACKAGE PK_CLIENTES AS
 
@@ -10709,8 +10691,7 @@ PROCEDURE mostrar_vw_clientes_compras (
 END PK_CLIENTES;
 
 /*--------------------
-Cuepo de paquete clientes
-
+Cuerpo de paquete clientes
 */---------------------
 
 CREATE OR REPLACE PACKAGE BODY PK_CLIENTES AS
@@ -11056,7 +11037,6 @@ CREATE OR REPLACE VIEW vw_vista_clientes_compras AS
 
 /*--------------------
 Paquete proveedores
-
 */---------------------
 
 CREATE OR REPLACE PACKAGE PK_PROVEEDORES AS
@@ -11104,7 +11084,6 @@ PROCEDURE mostrar_vw_productos_proveedores (
  
  /*--------------------
 Cuerpo de paquete proveedores
-
 */---------------------
 CREATE OR REPLACE PACKAGE BODY PK_PROVEEDORES AS
 
@@ -11269,7 +11248,7 @@ END EDITAR_CONTACTO_PROVEEDOR;
 
 
 
---Procedimeinto paara eliminar proveedor
+--Procedimiento para eliminar proveedor
 
  PROCEDURE ELIMINAR_PROVEEDOR (
     P_ID_PROVEEDOR IN PROVEEDORES.ID_PROVEEDOR%TYPE
@@ -11481,15 +11460,15 @@ BEGIN
     END IF;
 END TRG_NO_ELIMINAR_PROV_CON_PRODUCTOS;
 
+
  -----------------------------------RF-03----------------------------------------
     ----------El sistema deberá permitir registrar productos con sus respectivas categorías.-
-   -- Autor: Sebastián Rivera
-//*=============================================================================*/
+/* ----------------------------------------------------------------------------------- */
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 1: REGISTRAR UN PRODUCTO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PRODUCTO (
     p_nombre         IN PRODUCTOS.NOMBRE%TYPE,
@@ -11541,9 +11520,9 @@ END SP_REGISTRAR_PRODUCTO;
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 2: ACTUALIZAR UN PRODUCTO CON NVL
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_PRODUCTO (
     p_id_producto    IN PRODUCTOS.ID_PRODUCTO%TYPE,
@@ -11595,16 +11574,11 @@ EXCEPTION
         );
 
 END SP_ACTUALIZAR_PRODUCTO;
-/
 
 
-
-
-
-
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 3: ELIMINAR UN PRODUCTO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ELIMINAR_PRODUCTO (
     p_id_producto IN PRODUCTOS.ID_PRODUCTO%TYPE
@@ -11662,13 +11636,12 @@ EXCEPTION
         );
 
 END SP_ELIMINAR_PRODUCTO;
-/
 
 
 
-/* =========================================================
-   PROCEDIMIENTO 4: LISTAR CATEGORÍAS
-   ========================================================= */
+/* -----------------------------------------------------------------------------------
+   PROCEDIMIENTO 4: LISTAR CATEGORIAS
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_LISTAR_CATEGORIAS (
     p_cursor OUT SYS_REFCURSOR
@@ -11690,12 +11663,11 @@ END SP_LISTAR_CATEGORIAS;
 
  ----------------------------- RF-04---------------------------------------
  ------------El sistema deberá administrar el inventario de productos por sucursal------------
-    --Autor: Sebastián Rivera--
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 1: REGISTRAR INVENTARIO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_INVENTARIO (
     p_cantidad      IN PRODUCTOS_SUCURSALES.CANTIDAD%TYPE,
@@ -11732,14 +11704,13 @@ EXCEPTION
         );
 
 END SP_REGISTRAR_INVENTARIO;
-/
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 2: ACTUALIZAR INVENTARIO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_INVENTARIO (
     p_id_producto_sucursal IN PRODUCTOS_SUCURSALES.ID_PRODUCTOS_SUCURSALES%TYPE,
@@ -11789,14 +11760,13 @@ EXCEPTION
         );
 
 END SP_ACTUALIZAR_INVENTARIO;
-/
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 3: ELIMINAR INVENTARIO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ELIMINAR_INVENTARIO (
     p_id_producto_sucursal IN PRODUCTOS_SUCURSALES.ID_PRODUCTOS_SUCURSALES%TYPE
@@ -11834,15 +11804,14 @@ EXCEPTION
         );
 
 END SP_ELIMINAR_INVENTARIO;
-/
 
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 4: LISTAR INVENTARIO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO (
     p_id_sucursal IN PRODUCTOS_SUCURSALES.ID_SUCURSAL%TYPE,
@@ -11862,24 +11831,19 @@ BEGIN
         ORDER BY ID_PRODUCTOS_SUCURSALES;
 
 END SP_LISTAR_INVENTARIO;
-/
 
 
 
-
------------------------------RF-10 Y RF11----------------------
-/* =========================================================
-   RF-10
-   El sistema deberá registrar los pagos realizados
+-----------------------------RF-10 Y RF11---------------------------------------------
+/* -----------------------------------------------------------------------------------
+   RF-10: El sistema deberá registrar los pagos realizados
    a los trabajadores.
-
-   Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 1: REGISTRAR PAGO DE TRABAJADOR
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PAGO_TRABAJADOR (
     p_anio            IN PAGO_TRABAJADORES.ANIO%TYPE,
@@ -11942,11 +11906,10 @@ EXCEPTION
         );
 
 END SP_REGISTRAR_PAGO_TRABAJADOR;
-/
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 2: ACTUALIZAR PAGO CON NVL
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ACTUALIZAR_PAGO_TRABAJADOR (
     p_id_pago         IN PAGO_TRABAJADORES.ID_PAGO%TYPE,
@@ -11997,11 +11960,10 @@ EXCEPTION
         );
 
 END SP_ACTUALIZAR_PAGO_TRABAJADOR;
-/
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 3: ELIMINAR PAGO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_ELIMINAR_PAGO_TRABAJADOR (
     p_id_pago IN PAGO_TRABAJADORES.ID_PAGO%TYPE
@@ -12040,11 +12002,10 @@ EXCEPTION
         );
 
 END SP_ELIMINAR_PAGO_TRABAJADOR;
-/
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 4: CONSULTAR PAGOS POR TRABAJADOR
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_LISTAR_PAGOS_TRABAJADOR (
     p_id_trabajador IN PAGO_TRABAJADORES.ID_TRABAJADOR%TYPE,
@@ -12068,21 +12029,16 @@ BEGIN
         ORDER BY P.ANIO, P.MES, P.QUINCENA;
 
 END SP_LISTAR_PAGOS_TRABAJADOR;
-/
 
 
-/* =========================================================
-   RF-11
-   El sistema deberá generar consultas sobre ventas,
+/* -----------------------------------------------------------------------------------
+   RF-11: El sistema deberá generar consultas sobre ventas,
    inventarios, proveedores y clientes.
+----------------------------------------------------------------------------------- */
 
-   Autor: Sebastián Rivera
-   ========================================================= */
-
-
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 1: CONSULTAR VENTAS
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_CONSULTAR_VENTAS (
     p_cursor OUT SYS_REFCURSOR
@@ -12102,13 +12058,13 @@ BEGIN
         ORDER BY ID_VENTA;
 
 END SP_CONSULTAR_VENTAS;
-/
 
 
 
-/* =========================================================
+
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 2: CONSULTAR INVENTARIO
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_CONSULTAR_INVENTARIO (
     p_cursor OUT SYS_REFCURSOR
@@ -12126,14 +12082,13 @@ BEGIN
         ORDER BY ID_PRODUCTOS_SUCURSALES;
 
 END SP_CONSULTAR_INVENTARIO;
-/
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 3: CONSULTAR PROVEEDORES
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_CONSULTAR_PROVEEDORES (
     p_cursor OUT SYS_REFCURSOR
@@ -12155,14 +12110,13 @@ BEGIN
         ORDER BY ID_PROVEEDOR;
 
 END SP_CONSULTAR_PROVEEDORES;
-/
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    PROCEDIMIENTO 4: CONSULTAR CLIENTES
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE PROCEDURE SP_CONSULTAR_CLIENTES (
     p_cursor OUT SYS_REFCURSOR
@@ -12182,15 +12136,13 @@ BEGIN
         ORDER BY CEDULA;
 
 END SP_CONSULTAR_CLIENTES;
-/
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    TRIGGER RF-03: VALIDAR PRECIOS DEL PRODUCTO
-   Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE TRIGGER TRG_VALIDAR_PRECIOS_PRODUCTO
 BEFORE INSERT OR UPDATE ON PRODUCTOS
@@ -12212,16 +12164,15 @@ BEGIN
     END IF;
 
 END;
-/
 
 
 
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    TRIGGER RF-04: VALIDAR CANTIDAD DE INVENTARIO
    Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE TRIGGER TRG_VALIDAR_CANTIDAD_INVENTARIO
 BEFORE INSERT OR UPDATE ON PRODUCTOS_SUCURSALES
@@ -12236,13 +12187,12 @@ BEGIN
     END IF;
 
 END;
-/
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    TRIGGER RF-10: CALCULAR MONTO TOTAL DEL PAGO
    Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE TRIGGER TRG_CALCULAR_PAGO_TRABAJADOR
 BEFORE INSERT OR UPDATE ON PAGO_TRABAJADORES
@@ -12281,17 +12231,11 @@ BEGIN
         :NEW.MONTO_HORA * :NEW.HORAS_LABORADAS;
 
 END;
-/
 
 
-
-
-
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    VISTA 1: PRODUCTOS
-
-   Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE VIEW VW_PRODUCTOS AS
 SELECT
@@ -12301,7 +12245,6 @@ SELECT
     PRECIO_COSTO,
     ID_CATEGORIA
 FROM PRODUCTOS;
-/
 
 ---procedimiento de la vista 1---
 CREATE OR REPLACE PROCEDURE SP_VISTA_PRODUCTOS (
@@ -12320,14 +12263,11 @@ BEGIN
         FROM VW_PRODUCTOS;
 
 END SP_VISTA_PRODUCTOS;
-/
 
 
-/* =========================================================
+/* -----------------------------------------------------------------------------------
    VISTA 2: INVENTARIO
-
-   Autor: Sebastián Rivera
-   ========================================================= */
+   ----------------------------------------------------------------------------------- */
 
 CREATE OR REPLACE VIEW VW_INVENTARIO AS
 SELECT
@@ -12336,7 +12276,6 @@ SELECT
     ID_SUCURSAL,
     ID_PRODUCTO
 FROM PRODUCTOS_SUCURSALES;
-/
 
 --procedimiento vista 2----
 CREATE OR REPLACE PROCEDURE SP_VISTA_INVENTARIO (
@@ -12354,7 +12293,6 @@ BEGIN
         FROM VW_INVENTARIO;
 
 END SP_VISTA_INVENTARIO;
-/
 
 
 
@@ -12382,11 +12320,10 @@ INNER JOIN Trabajadores t
 INNER JOIN Tipo_Pagos tp
     ON tp.ID_Tipo_Pago = v.ID_Tipo_Pago;
 
--- ============================================================
+-----------------------------------------------------------------------------------
 -- RF-05 y RF-06
--- Registra una venta, guarda el metodo de pago, crea el detalle
--- del producto vendido y descuenta el inventario de la sucursal.
--- ============================================================
+-- Registra una venta, guarda el metodo de pago, crea el detalle del producto vendido y descuenta el inventario de la sucursal.
+-----------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_VENTA (
     p_cedula          IN  Clientes.Cedula%TYPE,
     p_id_trabajador   IN  Trabajadores.ID_Trabajador%TYPE,
@@ -12520,7 +12457,7 @@ EXCEPTION
         p_total := 0;
         p_mensaje := 'Error al registrar la venta: ' || SQLERRM;
 END SP_REGISTRAR_VENTA;
-/
+
 -- Lista las ventas registradas mediante SYS_REFCURSOR.
 CREATE OR REPLACE PROCEDURE SP_LISTAR_VENTAS (
     p_cursor OUT SYS_REFCURSOR
@@ -12539,7 +12476,6 @@ BEGIN
         FROM VW_DETALLE_VENTAS
         ORDER BY ID_Venta DESC;
 END SP_LISTAR_VENTAS;
-/
 
 -- Lista productos disponibles por sucursal para facilitar la venta.
 CREATE OR REPLACE PROCEDURE SP_LISTAR_INVENTARIO_VENTA (
@@ -12561,13 +12497,11 @@ BEGIN
           AND ps.Cantidad > 0
         ORDER BY p.Nombre;
 END SP_LISTAR_INVENTARIO_VENTA;
-/
 
--- ============================================================
+-- -----------------------------------------------------------------------------------
 -- RF-05 y RF-06
--- Modificar una venta existente.
--- Se utiliza NVL para permitir modificar uno o varios datos.
--- ============================================================
+-- Modifica una venta existente. Se utiliza NVL para permitir modificar uno o varios datos.
+-- -----------------------------------------------------------------------------------
 
 CREATE OR REPLACE PROCEDURE SP_MODIFICAR_VENTA (
     p_id_venta       IN Ventas.ID_Venta%TYPE,
@@ -12608,13 +12542,11 @@ EXCEPTION
         p_mensaje := 'Error al modificar la venta: ' || SQLERRM;
 
 END SP_MODIFICAR_VENTA;
-/
 
--- ============================================================
+-- -----------------------------------------------------------------------------------
 -- RF-05 y RF-06
--- Eliminar una venta.
--- Antes de eliminar se valida que no tenga registros asociados.
--- ============================================================
+-- Elimina una venta. Antes de eliminar se valida que no tenga registros asociados.
+-- -----------------------------------------------------------------------------------
 
 CREATE OR REPLACE PROCEDURE SP_ELIMINAR_VENTA (
     p_id_venta IN Ventas.ID_Venta%TYPE,
@@ -12662,13 +12594,11 @@ EXCEPTION
         p_mensaje := 'Error al eliminar la venta: ' || SQLERRM;
 
 END SP_ELIMINAR_VENTA;
-/
 
--- ============================================================
+-- -----------------------------------------------------------------------------------
 -- BLOQUES DE PRUEBA y EVIDENCIAS
--- Cambiar los identificadores si los datos de prueba del grupo
--- utilizan otros valores.
--- ============================================================
+-- Cambia los identificadores si los datos de prueba del grupo utilizan otros valores.
+-- -----------------------------------------------------------------------------------
 
 -- Prueba 1: verificar metodos de pago disponibles.
 SELECT ID_Tipo_Pago, Metodo_Pago
@@ -12731,7 +12661,6 @@ BEGIN
 END;
 
 --------------------------------------------------------
-
 -- Procedimiento Registrar un nuevo producto
 
 CREATE OR REPLACE PROCEDURE SP_REGISTRAR_PRODUCTO (
@@ -12859,7 +12788,6 @@ END SP_LISTAR_INVENTARIO;
 ----------------------RF-08. El sistema deberá permitir registrar devoluciones de productos.---------------------------
 /*--------------------
 Paquete devoluciones
-
 */---------------------
 
 
@@ -12886,7 +12814,6 @@ END PK_DEVOLUCIONES;
 
 /*--------------------
 Cuerpo de paquete devoluciones
-
 */---------------------
 
 
@@ -13190,10 +13117,8 @@ END;
 
 ----------------------RF-09. El sistema deberá almacenar la información de los trabajadores y sus respectivos roles.---------------------------
 
-
 /*--------------------
 paquete trabajadores
-
 */---------------------
 
 CREATE OR REPLACE PACKAGE PK_TRABAJADORES AS
@@ -13244,7 +13169,6 @@ END PK_TRABAJADORES;
 
 /*--------------------
 Cuerpo de paquete trabajadores
-
 */---------------------
 
 CREATE OR REPLACE PACKAGE BODY PK_TRABAJADORES AS
@@ -13836,5 +13760,3 @@ BEGIN
                :new.id_rol );
 
 END trg_auditar_cambio_rol;
-
-
