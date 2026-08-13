@@ -55,7 +55,7 @@ class DAOVentas:
                     PK_VENTAS.SP_LISTAR_INVENTARIO_VENTA(:id_sucursal, :cur);
                 END;
                 """,
-                id_sucursal=id_sucursal,
+                id_sucursal=str(id_sucursal),
                 cur=salida
             )
 
@@ -177,6 +177,33 @@ class DAOVentas:
             return rows
         except oracledb.Error as error:
             print(f"Error al consultar ventas: {error}")
+            return []
+        finally:
+            if result_cursor is not None:
+                result_cursor.close()
+            if cursor is not None:
+                cursor.close()
+
+
+    # DETALLE DE VENTAS POR PRODUCTO (para saber qué devolver)
+
+    def consultar_detalle_productos(self):
+        """Lista las ventas con el ID de producto y la cantidad comprada,
+        usando PK_VENTAS_EXTRA.SP_LISTAR_VENTAS_DETALLE_PRODUCTOS.
+        Pensado para tener a mano los datos que pide 'Registrar devolución'."""
+        cursor = None
+        result_cursor = None
+        try:
+            cursor = self.connection.cursor()
+            print(">> Ejecutando PK_VENTAS_EXTRA.SP_LISTAR_VENTAS_DETALLE_PRODUCTOS...")
+            salida = cursor.var(oracledb.CURSOR)
+            cursor.callproc("PK_VENTAS_EXTRA.SP_LISTAR_VENTAS_DETALLE_PRODUCTOS", [salida])
+            result_cursor = salida.getvalue()
+            rows = result_cursor.fetchall()
+            print(f"   Se encontraron {len(rows)} registro(s).")
+            return rows
+        except oracledb.Error as error:
+            print(f"Error al consultar el detalle de ventas: {error}")
             return []
         finally:
             if result_cursor is not None:

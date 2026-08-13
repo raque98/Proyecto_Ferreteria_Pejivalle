@@ -90,7 +90,7 @@ class DAOSucursales:
                     PK_INVENTARIO.SP_LISTAR_INVENTARIO(:id_sucursal, :cur);
                 END;
                 """,
-                id_sucursal=id_sucursal,
+                id_sucursal=str(id_sucursal),
                 cur=resultado
             )
 

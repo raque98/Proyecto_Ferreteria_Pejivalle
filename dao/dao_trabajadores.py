@@ -59,7 +59,7 @@ class DAOTrabajadores:
                     PK_TRABAJADORES.PD_BUSCAR_TRABAJADOR_POR_ID(:id_trabajador, :cur);
                 END;
                 """,
-                id_trabajador=id_trabajador,
+                id_trabajador=str(id_trabajador),
                 cur=resultado
             )
 
@@ -107,7 +107,7 @@ class DAOTrabajadores:
                     PK_TRABAJADORES.PD_LISTAR_TRABAJADORES_POR_SUCURSAL(:id_sucursal, :cur);
                 END;
                 """,
-                id_sucursal=id_sucursal,
+                id_sucursal=str(id_sucursal),
                 cur=resultado
             )
 
