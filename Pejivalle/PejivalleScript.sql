@@ -1346,21 +1346,98 @@ LEFT JOIN VENTAS V ON V.ID_TRABAJADOR = T.ID_TRABAJADOR
 GROUP BY T.ID_TRABAJADOR, T.IDENTIFICACION, T.NOMBRE, T.APELLIDO1, T.APELLIDO2, R.ROL
 ORDER BY TOTAL_VENDIDO DESC;
 
--- ============================================================
+
 -- 8. PAQUETES
--- ============================================================
 
 --  PK_CATEGORIA
 CREATE OR REPLACE PACKAGE PK_CATEGORIA AS
-    PROCEDURE SP_LISTAR_CATEGORIAS (p_cursor OUT SYS_REFCURSOR);
+
+    PROCEDURE SP_LISTAR_CATEGORIAS (
+        p_cursor OUT SYS_REFCURSOR
+    );
+
+    PROCEDURE SP_REGISTRAR_CATEGORIA (
+        p_nombre IN CATEGORIA.NOMBRE%TYPE
+    );
+
+    PROCEDURE SP_ACTUALIZAR_CATEGORIA (
+        p_id_categoria IN CATEGORIA.ID_CATEGORIA%TYPE,
+        p_nombre       IN CATEGORIA.NOMBRE%TYPE
+    );
+
+    PROCEDURE SP_ELIMINAR_CATEGORIA (
+        p_id_categoria IN CATEGORIA.ID_CATEGORIA%TYPE
+    );
+
 END PK_CATEGORIA;
 /
 
 CREATE OR REPLACE PACKAGE BODY PK_CATEGORIA AS
-    PROCEDURE SP_LISTAR_CATEGORIAS (p_cursor OUT SYS_REFCURSOR) AS
+
+    PROCEDURE SP_LISTAR_CATEGORIAS (
+        p_cursor OUT SYS_REFCURSOR
+    )
+    AS
     BEGIN
-        OPEN p_cursor FOR SELECT ID_CATEGORIA, NOMBRE FROM CATEGORIA ORDER BY NOMBRE;
+        OPEN p_cursor FOR
+            SELECT
+                ID_CATEGORIA,
+                NOMBRE
+            FROM CATEGORIA
+            ORDER BY NOMBRE;
     END SP_LISTAR_CATEGORIAS;
+
+    PROCEDURE SP_REGISTRAR_CATEGORIA (
+        p_nombre IN CATEGORIA.NOMBRE%TYPE
+    )
+    AS
+    BEGIN
+        INSERT INTO CATEGORIA (NOMBRE) VALUES (p_nombre);
+        COMMIT;
+    END SP_REGISTRAR_CATEGORIA;
+
+    PROCEDURE SP_ACTUALIZAR_CATEGORIA (
+        p_id_categoria IN CATEGORIA.ID_CATEGORIA%TYPE,
+        p_nombre       IN CATEGORIA.NOMBRE%TYPE
+    )
+    AS
+    BEGIN
+        UPDATE CATEGORIA
+        SET NOMBRE = NVL(p_nombre, NOMBRE)
+        WHERE ID_CATEGORIA = p_id_categoria;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20650, 'La categoría indicada no existe.');
+        END IF;
+
+        COMMIT;
+    END SP_ACTUALIZAR_CATEGORIA;
+
+
+    PROCEDURE SP_ELIMINAR_CATEGORIA (
+        p_id_categoria IN CATEGORIA.ID_CATEGORIA%TYPE
+    )
+    AS
+        v_cantidad NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_cantidad
+        FROM PRODUCTOS
+        WHERE ID_CATEGORIA = p_id_categoria;
+
+        IF v_cantidad > 0 THEN
+            RAISE_APPLICATION_ERROR(-20651, 'No se puede eliminar la categoría porque tiene productos asociados.');
+        END IF;
+
+        DELETE FROM CATEGORIA WHERE ID_CATEGORIA = p_id_categoria;
+
+        IF SQL%ROWCOUNT = 0 THEN
+            RAISE_APPLICATION_ERROR(-20652, 'La categoría indicada no existe.');
+        END IF;
+
+        COMMIT;
+    END SP_ELIMINAR_CATEGORIA;
+
 END PK_CATEGORIA;
 /
 
