@@ -151,6 +151,8 @@ class FerreteriaGUI:
 
         ttk.Button(frame, text="Ver todos", command=self.ver_tipo_pagos, width=20).pack(pady=5)
         ttk.Button(frame, text="Registrar nuevo", command=self.registrar_tipo_pago, width=20).pack(pady=5)
+        ttk.Button(frame, text="Actualizar", command=self.actualizar_tipo_pago_gui, width=20).pack(pady=5)
+        ttk.Button(frame, text="Eliminar", command=self.eliminar_tipo_pago_gui, width=20).pack(pady=5)
         ttk.Button(frame, text="Cerrar", command=ventana.destroy, width=20).pack(pady=10)
 
     def ver_tipo_pagos(self):
@@ -176,13 +178,73 @@ class FerreteriaGUI:
         def guardar():
             nombre = entry.get()
             if nombre.strip():
-                self.dao_tipo_pagos.registrar(nombre)
-                messagebox.showinfo("Exito", "Metodo de pago registrado con exito")
-                ventana.destroy()
+                try:
+                    self.dao_tipo_pagos.registrar(nombre)
+                    messagebox.showinfo("Exito", "Metodo de pago registrado con exito")
+                    ventana.destroy()
+                except Exception as e:
+                    messagebox.showerror("Error", f"No se pudo registrar: {e}")
             else:
                 messagebox.showwarning("Advertencia", "Ingrese un nombre válido")
 
         ttk.Button(frame, text="Guardar", command=guardar, width=15).pack(pady=10)
+        ttk.Button(frame, text="Cancelar", command=ventana.destroy, width=15).pack(pady=5)
+
+    def actualizar_tipo_pago_gui(self):
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Actualizar Método de Pago")
+        ventana.geometry("400x220")
+        ventana.resizable(False, False)
+
+        frame = ttk.Frame(ventana, padding="10")
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        ttk.Label(frame, text="Actualizar Método de Pago", font=("Arial", 12, "bold")).pack(pady=5)
+
+        ttk.Label(frame, text="ID del método de pago:").pack(anchor="w", pady=2)
+        entry_id = ttk.Entry(frame, width=40)
+        entry_id.pack(anchor="w", pady=2)
+
+        ttk.Label(frame, text="Nuevo nombre (dejar vacío para no cambiar):").pack(anchor="w", pady=2)
+        entry_nombre = ttk.Entry(frame, width=40)
+        entry_nombre.pack(anchor="w", pady=2)
+
+        def guardar():
+            try:
+                nombre = entry_nombre.get().strip() or None
+                self.dao_tipo_pagos.actualizar(int(entry_id.get()), nombre)
+                messagebox.showinfo("Éxito", "Método de pago actualizado con éxito")
+                ventana.destroy()
+            except Exception as e:
+                messagebox.showerror("Error", f"No se pudo actualizar: {e}")
+
+        ttk.Button(frame, text="Guardar", command=guardar, width=15).pack(pady=10)
+        ttk.Button(frame, text="Cancelar", command=ventana.destroy, width=15).pack(pady=5)
+
+    def eliminar_tipo_pago_gui(self):
+        ventana = tk.Toplevel(self.root)
+        ventana.title("Eliminar Método de Pago")
+        ventana.geometry("400x180")
+        ventana.resizable(False, False)
+
+        frame = ttk.Frame(ventana, padding="10")
+        frame.pack(fill=tk.BOTH, expand=True)
+
+        ttk.Label(frame, text="Eliminar Método de Pago", font=("Arial", 12, "bold")).pack(pady=5)
+
+        ttk.Label(frame, text="ID del método de pago:").pack(anchor="w", pady=2)
+        entry_id = ttk.Entry(frame, width=40)
+        entry_id.pack(anchor="w", pady=2)
+
+        def eliminar():
+            try:
+                self.dao_tipo_pagos.eliminar(int(entry_id.get()))
+                messagebox.showinfo("Éxito", "Método de pago eliminado con éxito")
+                ventana.destroy()
+            except Exception as e:
+                messagebox.showerror("Error", f"No se pudo eliminar: {e}")
+
+        ttk.Button(frame, text="Eliminar", command=eliminar, width=15).pack(pady=10)
         ttk.Button(frame, text="Cancelar", command=ventana.destroy, width=15).pack(pady=5)
 
     # Menu: Clientes
