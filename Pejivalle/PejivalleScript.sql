@@ -1249,7 +1249,484 @@ INSERT INTO trabajadores (nombre, apellido1, apellido2, identificacion, correo_e
 VALUES ('Lucía', 'Alvarado', 'Céspedes', 'T-3049', 'lucia.alvarado50@pejivalle.cr', 'Activo', 5, 2, 3);
 COMMIT;
 
+--Telefonos trabajadores
 
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 1);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 2);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 3);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 4);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 5);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 6);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 7);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 8);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 9);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 10);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 11);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 12);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 13);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 14);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 15);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 16);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 17);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 18);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 19);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 20);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 21);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 22);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 23);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 24);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 25);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 26);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 27);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 28);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 29);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 30);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 31);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 32);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 33);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 34);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 35);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 36);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 37);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 38);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 39);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 40);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 41);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 42);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 43);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 44);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 45);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 46);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 47);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 48);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 49);
+
+INSERT INTO Pago_Trabajadores 
+(Anio, Mes, Quincena, Monto_Hora, Horas_Laboradas, Monto_Total, ID_Trabajador)
+VALUES (2026, 2, 1, 3200.00, 80.00, 256000.00, 50);
+
+COMMIT;
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Motul 5W-30 1L', 'Aceite sintético para motor', 2500.00, 1800.00, DATE '2026-01-15', 1, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Castrol GTX 10W-40 1L', 'Aceite semisintético para motor', 2850.00, 2050.00, DATE '2026-01-16', 2, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Shell Helix Ultra 5W-40 1L', 'Aceite sintético premium', 3200.00, 2300.00, DATE '2026-01-17', 3, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Valvoline 20W-50 1L', 'Aceite mineral para motor', 2400.00, 1700.00, DATE '2026-01-18', 4, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Mobil 1 0W-20 1L', 'Aceite sintético alto rendimiento', 3550.00, 2550.00, DATE '2026-01-19', 10, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Motul 8100 X-clean 5W-40 4L', 'Aceite sintético (galón 4L)', 11800.00, 8800.00, DATE '2026-01-20', 1, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Castrol Magnatec 5W-30 4L', 'Aceite sintético con protección extra (4L)', 11200.00, 8200.00, DATE '2026-01-21', 2, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Shell Helix HX7 10W-40 4L', 'Aceite semisintético (4L)', 10500.00, 7700.00, DATE '2026-01-22', 4, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Valvoline SynPower 5W-30 4L', 'Aceite sintético (4L)', 11500.00, 8450.00, DATE '2026-01-23', 4, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Mobil Super 2000 10W-40 4L', 'Aceite semisintético (4L)', 10800.00, 7900.00, DATE '2026-01-24', 9, 1);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Aceite MANN W 610/3', 'Filtro de aceite para motor', 3900.00, 2800.00, DATE '2026-01-25', 6, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Aire FRAM CA10242', 'Filtro de aire para motor', 4250.00, 3060.00, DATE '2026-01-26', 8, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Cabina MANN CU 26004', 'Filtro de polen/cabina', 4800.00, 3450.00, DATE '2026-01-27', 6, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Combustible Bosch N2040', 'Filtro de gasolina/diésel', 5200.00, 3780.00, DATE '2026-01-28', 7, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Aceite FRAM PH7317', 'Filtro de aceite para motor', 4100.00, 2950.00, DATE '2026-01-29', 8, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Aire MANN C 30005', 'Filtro de aire para motor', 4500.00, 3240.00, DATE '2026-01-30', 6, 2);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Limpiador de Inyectores 300ml', 'Aditivo para limpiar inyectores', 4600.00, 3310.00, DATE '2026-02-01', 10, 3);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Aditivo Octanaje Booster 150ml', 'Mejorador de octanaje', 5200.00, 3750.00, DATE '2026-02-02', 10, 3);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Tratamiento Motor Oil Additive 200ml', 'Reduce fricción y desgaste', 5400.00, 3900.00, DATE '2026-02-03', 10, 3);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Limpia Radiador 300ml', 'Aditivo para limpiar sistema de enfriamiento', 4900.00, 3520.00, DATE '2026-02-04', 10, 3);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aditivo Motul Fuel System Clean 300ml', 'Limpieza del sistema de combustible', 5100.00, 3680.00, DATE '2026-02-05', 1, 3);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Refrigerante TotalEnergies Verde 1L', 'Refrigerante listo para usar', 4950.00, 3560.00, DATE '2026-02-06', 5, 4);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Refrigerante TotalEnergies Rojo 1L', 'Refrigerante larga duración', 5200.00, 3740.00, DATE '2026-02-07', 5, 4);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Refrigerante TotalEnergies Verde 4L', 'Refrigerante listo para usar (4L)', 16500.00, 12400.00, DATE '2026-02-08', 5, 4);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Refrigerante TotalEnergies Concentrado 1L', 'Concentrado para mezcla', 5400.00, 3950.00, DATE '2026-02-09', 5, 4);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bosch Limpiador de Frenos 500ml', 'Limpia grasa/polvo en discos y pastillas', 5300.00, 3810.00, DATE '2026-02-10', 7, 5);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liquido de Frenos DOT 4 Castrol 355ml', 'Fluido DOT 4 para sistema de frenos', 4200.00, 3000.00, DATE '2026-02-11', 2, 5);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liquido de Frenos DOT 3 Valvoline 355ml', 'Fluido DOT 3 para frenos', 3900.00, 2750.00, DATE '2026-02-12', 4, 5);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Grasa para Caliper Bosch 70g', 'Lubricante para componentes de freno', 3600.00, 2500.00, DATE '2026-02-13', 7, 5);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Spray Antichirrido Liqui Moly 400ml', 'Reduce chirridos en frenos', 5900.00, 4300.00, DATE '2026-02-14', 10, 5);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bosch Limpiador Multiuso 500ml', 'Limpieza general de partes automotrices', 5600.00, 4030.00, DATE '2026-02-15', 7, 6);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Limpia Contactos 200ml', 'Spray para limpieza de contactos eléctricos', 6100.00, 4500.00, DATE '2026-02-16', 10, 6);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Espuma Limpia Tapiceria 400ml', 'Espuma para limpieza interior', 6500.00, 4800.00, DATE '2026-02-17', 10, 6);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bosch Shampoo Automotriz 1L', 'Shampoo para carrocería', 4800.00, 3450.00, DATE '2026-02-18', 7, 6);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Desengrasante Motul Engine Clean 300ml', 'Desengrasante para motor', 5700.00, 4150.00, DATE '2026-02-19', 1, 6);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bosch Bujía Iridium (unidad)', 'Bujía de alto desempeño', 5650.00, 4060.00, DATE '2026-02-20', 7, 7);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Cable de Bujía Bosch Juego x4', 'Juego de cables de bujía', 14500.00, 10800.00, DATE '2026-02-21', 7, 7);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Plumillas Bosch Aerotwin 24"', 'Escobilla limpiaparabrisas', 9800.00, 7200.00, DATE '2026-02-22', 7, 7);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Plumillas Bosch Aerotwin 18"', 'Escobilla limpiaparabrisas', 9200.00, 6800.00, DATE '2026-02-23', 7, 7);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Botella Mezcladora Refrigerante 1L', 'Botella para mezcla y relleno', 2500.00, 1600.00, DATE '2026-02-24', 5, 7);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bombillo H4 Bosch 60/55W', 'Bombillo halógeno H4', 3200.00, 2100.00, DATE '2026-02-25', 7, 8);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bombillo H7 Bosch 55W', 'Bombillo halógeno H7', 3400.00, 2250.00, DATE '2026-02-26', 7, 8);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bombillo P21W Bosch (unidad)', 'Bombillo direccional/stop P21W', 1500.00, 900.00, DATE '2026-02-27', 7, 8);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Luz LED Interior 12V Bosch', 'Luz LED para cabina', 2800.00, 1700.00, DATE '2026-02-28', 7, 8);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 195/65R15 Touring', 'Llanta para sedán (touring)', 42000.00, 33500.00, DATE '2026-03-01', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 205/55R16 Sport', 'Llanta para sedán (sport)', 47000.00, 37800.00, DATE '2026-03-02', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 215/60R16 SUV', 'Llanta para SUV', 52000.00, 41800.00, DATE '2026-03-03', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 225/45R17 Performance', 'Llanta alto desempeño', 58500.00, 47200.00, DATE '2026-03-04', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 265/70R16 All Terrain', 'Llanta todo terreno', 69000.00, 56000.00, DATE '2026-03-05', 7, 9);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Juego de Llaves Combinadas 8-19mm', 'Set de llaves para mecánica', 18500.00, 14000.00, DATE '2026-03-06', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Ratchet 1/2" con Dados 10-24mm', 'Juego de ratchet y dados', 26500.00, 20500.00, DATE '2026-03-07', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Gato Hidráulico 2 Toneladas', 'Gato para levantamiento de vehículo', 32000.00, 25500.00, DATE '2026-03-08', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Llave de Rueda Cruz 14-17-19-21mm', 'Llave cruz para cambio de llanta', 8500.00, 6200.00, DATE '2026-03-09', 7, 9);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Torquímetro 1/2" 28-210 Nm', 'Herramienta para torque preciso', 39500.00, 31800.00, DATE '2026-03-10', 7, 9);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Motul 10W-40 1L', 'Aceite semisintético para motor', 2600.00, 1870.00, DATE '2026-03-11', 1, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Castrol Edge 0W-30 1L', 'Aceite sintético premium', 3950.00, 2870.00, DATE '2026-03-12', 2, 1);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Aceite Shell Helix 0W-20 1L', 'Aceite sintético para motores modernos', 3800.00, 2750.00, DATE '2026-03-13', 3, 1);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Cabina FRAM CF10134', 'Filtro de cabina', 4700.00, 3350.00, DATE '2026-03-14', 8, 2);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Filtro de Combustible MANN WK 820/17', 'Filtro de combustible', 5600.00, 4100.00, DATE '2026-03-15', 6, 2);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Sellador de Fugas Radiador 250ml', 'Sella microfugas del radiador', 6200.00, 4600.00, DATE '2026-03-16', 8, 3);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Refrigerante TotalEnergies Rojo 4L', 'Refrigerante larga duración (4L)', 17800.00, 13400.00, DATE '2026-03-17', 5, 4);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liquido de Frenos DOT 4 Motul 500ml', 'Fluido DOT 4 alto desempeño', 5900.00, 4350.00, DATE '2026-03-18', 1, 5);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Liqui Moly Limpia Carburador 500ml', 'Spray para limpieza de carburador/cuerpo', 6800.00, 5050.00, DATE '2026-03-19', 4, 6);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bosch Batería 12V 60Ah', 'Batería para vehículo liviano', 62000.00, 50500.00, DATE '2026-03-20', 7, 7);
+
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Bombillo W5W Bosch (unidad)', 'Bombillo posición W5W', 1200.00, 700.00, DATE '2026-03-21', 7, 8);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Neumático 175/70R13 Económico', 'Llanta para compacto', 35500.00, 27800.00, DATE '2026-03-22', 7, 8);
+
+INSERT INTO Productos (Nombre, Descripcion, Precio_Venta, Precio_Costo, Fecha_Ultima_Entrada, ID_Proveedor, ID_Categoria)
+VALUES ('Compresor Portátil 12V', 'Compresor para inflar llantas', 24000.00, 18500.00, DATE '2026-03-23', 7, 8);
+commit;
+
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 1);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 2);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 3);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 4);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 5);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 6);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 7);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 8);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 9);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 10);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 11);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 12);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 13);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 14);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 15);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 16);
+
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 21);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 22);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 23);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 24);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 25);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 26);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 27);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 28);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 29);
+
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 31);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 34);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 35);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 36);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 37);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 38);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 39);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 40);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 41);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 42);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 43);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 44);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 45);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 46);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 47);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 48);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 49);
+
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 55);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 56);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 57);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 58);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 59);
+
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 61);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 62);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 64);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 65);
+INSERT INTO Productos_Sucursales (Cantidad, ID_Sucursal, ID_Producto) VALUES (8, 1, 66);
+
+COMMIT;
 -- 7. VISTAS
 
 
