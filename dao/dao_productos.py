@@ -151,12 +151,11 @@ class DAOProductos:
             ])
             self.connection.commit()
             print("   Producto registrado con éxito.")
-            return True
 
         except oracledb.Error as error:
             print(f"Error al registrar producto: {error}")
             self.connection.rollback()
-            return False
+            raise
         finally:
             if cursor is not None:
                 cursor.close()
@@ -172,12 +171,11 @@ class DAOProductos:
             ])
             self.connection.commit()
             print("   Producto actualizado con éxito.")
-            return True
 
         except oracledb.Error as error:
             print(f"Error al actualizar producto: {error}")
             self.connection.rollback()
-            return False
+            raise
         finally:
             if cursor is not None:
                 cursor.close()
@@ -190,12 +188,11 @@ class DAOProductos:
             cursor.callproc("PK_PRODUCTOS.SP_ELIMINAR_PRODUCTO", [id_producto])
             self.connection.commit()
             print("   Producto eliminado con éxito.")
-            return True
 
         except oracledb.Error as error:
             print(f"Error al eliminar producto: {error}")
             self.connection.rollback()
-            return False
+            raise
         finally:
             if cursor is not None:
                 cursor.close()

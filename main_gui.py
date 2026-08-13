@@ -4,6 +4,7 @@
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
+from datetime import datetime
 from dotenv import load_dotenv
 import oracledb
 
@@ -730,17 +731,22 @@ class FerreteriaGUI:
 
         def guardar():
             try:
+                fecha_texto = entries["fecha"].get().strip()
+                fecha_convertida = datetime.strptime(fecha_texto, "%Y-%m-%d").date()
+
                 self.dao_productos.registrar(
                     entries["nombre"].get(),
                     entries["descripcion"].get(),
                     float(entries["precio_venta"].get()),
                     float(entries["precio_costo"].get()),
-                    entries["fecha"].get(),
+                    fecha_convertida,
                     int(entries["id_proveedor"].get()),
                     int(entries["id_categoria"].get())
                 )
                 messagebox.showinfo("Éxito", "Producto registrado con éxito")
                 ventana.destroy()
+            except ValueError:
+                messagebox.showerror("Error", "La fecha debe tener el formato YYYY-MM-DD (ej. 2026-08-13)")
             except Exception as e:
                 messagebox.showerror("Error", f"No se pudo registrar: {e}")
 
