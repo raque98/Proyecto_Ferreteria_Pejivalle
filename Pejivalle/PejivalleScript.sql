@@ -1,8 +1,8 @@
- -- ============================================================
+ -- 
 --   TALLER PEJIVALLE 
 --   Curso: SC-504 Lenguajes de bases de datos
 --   SCRIPT UNIFICADO - Versión Final con todas las correcciones
--- ============================================================
+-- 
 
 -- 1. ELIMINACIÓN DE TABLAS Y SECUENCIAS
 
