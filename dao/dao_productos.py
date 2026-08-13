@@ -59,7 +59,7 @@ class DAOProductos:
                     PK_PRODUCTOS.SP_BUSCAR_PRODUCTO_POR_ID(:id_producto, :cur);
                 END;
                 """,
-                id_producto=id_producto,
+                id_producto=str(id_producto),
                 cur=resultado
             )
 
@@ -107,7 +107,7 @@ class DAOProductos:
                     PK_PRODUCTOS.SP_LISTAR_PRODUCTOS_POR_CATEGORIA(:id_categoria, :cur);
                 END;
                 """,
-                id_categoria=id_categoria,
+                id_categoria=str(id_categoria),
                 cur=resultado
             )
 
