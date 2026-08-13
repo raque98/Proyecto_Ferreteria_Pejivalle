@@ -2697,6 +2697,44 @@ END SP_CONSULTAR_VENTA_POR_ID;
 END PK_VENTAS;
 /
 
+CREATE OR REPLACE PACKAGE PK_VENTAS_EXTRA AS
+
+    PROCEDURE SP_LISTAR_VENTAS_DETALLE_PRODUCTOS (
+        p_cursor OUT SYS_REFCURSOR
+    );
+
+END PK_VENTAS_EXTRA;
+/
+
+CREATE OR REPLACE PACKAGE BODY PK_VENTAS_EXTRA AS
+
+    PROCEDURE SP_LISTAR_VENTAS_DETALLE_PRODUCTOS (
+        p_cursor OUT SYS_REFCURSOR
+    )
+    AS
+    BEGIN
+        OPEN p_cursor FOR
+            SELECT
+                v.ID_Venta,
+                v.Fecha_Hora,
+                v.Cedula,
+                c.Nombre || ' ' || c.Apellido1 AS Cliente,
+                pv.ID_Producto,
+                p.Nombre AS Producto,
+                pv.Cantidad AS Cantidad_Comprada
+            FROM Ventas v
+            INNER JOIN Clientes c
+                ON c.Cedula = v.Cedula
+            INNER JOIN Productos_Ventas pv
+                ON pv.ID_Venta = v.ID_Venta
+            INNER JOIN Productos p
+                ON p.ID_Producto = pv.ID_Producto
+            ORDER BY v.Fecha_Hora DESC;
+    END SP_LISTAR_VENTAS_DETALLE_PRODUCTOS;
+
+END PK_VENTAS_EXTRA;
+/
+
 -- PK_DEVOLUCIONES
 CREATE OR REPLACE PACKAGE PK_DEVOLUCIONES AS
 
@@ -2939,6 +2977,48 @@ BEGIN
 END PD_VW_DETALLE_DEVOLUCIONES;
  
 END PK_DEVOLUCIONES;
+/
+
+CREATE OR REPLACE PACKAGE PK_DEVOLUCIONES_EXTRA AS
+
+    PROCEDURE SP_LISTAR_DEVOLUCIONES_COMPLETO (
+        p_cursor OUT SYS_REFCURSOR
+    );
+
+END PK_DEVOLUCIONES_EXTRA;
+/
+
+CREATE OR REPLACE PACKAGE BODY PK_DEVOLUCIONES_EXTRA AS
+
+    PROCEDURE SP_LISTAR_DEVOLUCIONES_COMPLETO (
+        p_cursor OUT SYS_REFCURSOR
+    )
+    AS
+    BEGIN
+        OPEN p_cursor FOR
+            SELECT
+                d.ID_Devolucion,
+                d.Fecha_Hora,
+                d.Cedula,
+                c.Nombre || ' ' || c.Apellido1 AS Cliente,
+                d.ID_Venta,
+                d.ID_Producto,
+                p.Nombre AS Producto,
+                d.Cantidad_Devuelta,
+                d.Motivo,
+                d.ID_Tipo_Devolucion,
+                td.Tipo_Devolucion
+            FROM DEVOLUCION d
+            INNER JOIN CLIENTES c
+                ON c.Cedula = d.Cedula
+            INNER JOIN PRODUCTOS p
+                ON p.ID_Producto = d.ID_Producto
+            INNER JOIN TIPO_DEVOLUCIONES td
+                ON td.ID_Tipo_Devolucion = d.ID_Tipo_Devolucion
+            ORDER BY d.Fecha_Hora DESC;
+    END SP_LISTAR_DEVOLUCIONES_COMPLETO;
+
+END PK_DEVOLUCIONES_EXTRA;
 /
 
 -- PK_TRABAJADORES
